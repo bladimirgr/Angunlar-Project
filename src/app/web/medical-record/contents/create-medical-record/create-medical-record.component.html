@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-12">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+    
+            <div class="col-lg-12">
+              <div class="p-3">
+
+                <form [formGroup]="visitForm" (ngSubmit)="Create()">
+
+                  <div>
+                    <h6 class="text-muted">  <span class="text-secondary"></span></h6>
+                  </div>
+                  <div class="row">
+                    <div class="form-row col-6">
+                  
+                      <div class="form-group col-10">
+                
+                        <div class="form-group col-10">
+                          <span>Servicio</span>
+                          <input readonly [(ngModel)]="service" pInputText class="p-inputtext form-control" type="text" title="service" formControlName="service">
+                        </div>
+                
+                        <div class="form-group col-10">
+                          <span>Motivo Consulta</span>
+                          <input pInputText class="p-inputtext form-control" type="text" title="reason" formControlName="reason">
+                          <app-error-messages [control]="this.visitForm.controls['reason']"></app-error-messages>
+                        </div>
+                      
+                        <div class="form-group col-10">
+                          <span>Descripción</span>
+                          <input pInputText class="p-inputtext form-control" type="text" title="password" formControlName="description">
+                        </div>
+                        
+                        <div class="form-group col-10">
+                          <span>Diagnostico</span>
+                          <input readonly pInputText class="p-inputtext form-control" type="text" title="dignostics" formControlName="dignostics">
+                        </div>
+                    
+                      </div>
+                    </div>
+                
+                    <div class="col-6">
+                      <span>Sintomas</span>
+                      <p-listbox [listStyle]="{'max-height':'200px'}" [checkbox]="true" [options]="symptoms"
+                        [multiple]="true" [filter]="true" optionLabel="name"
+                        optionValue="name" formControlName="symptoms"
+                      ></p-listbox>
+                    </div>
+                
+                  </div>
+                
+                    <br><br>
+                    <div class="mb-3">
+                      <button pButton type="button" class="p-button-danger p-button-rounded">Cancelar</button>  
+                      <button pButton type="button" class="p-button-warning p-button-rounded">Limpiar</button>  
+                      <button pButton type="submit" class="float-right p-button-raised p-button-rounded">Enviar</button>  
+                    </div>
+                </form>
+                
+              </div>
+            </div>
+
+        </div>
+      </div>    
+    </div>
+  </div>
+</div>
+
+

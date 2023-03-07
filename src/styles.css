@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+/* color border */
+input.ng-valid.ng-touched{
+    border: 2px solid #9dfab0;
+}
+
+p-dropdown.ng-valid.ng-touched > .p-dropdown.p-component {
+    border: 2px solid #9dfab0;
+}
+
+p-inputmask.ng-valid.ng-touched > .p-inputmask.p-component {
+    border: 2px solid #9dfab0;
+}
+
+
+/* Invalidos */
+
+input.ng-invalid.ng-touched{
+    border: 2px solid #f8554c;
+}
+
+p-dropdown.ng-invalid.ng-touched > .p-dropdown.p-component {
+    border: 2px solid #f8554c;
+}
+
+p-inputmask.ng-invalid.ng-touched > .p-inputmask.p-component {
+    border: 2px solid #f8554c;
+}

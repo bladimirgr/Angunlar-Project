@@ -1,0 +1,21 @@
+<p-dialog 
+  [(visible)]="display"
+  [style]="{width: '50vw'}"
+  [resizable]="true"
+  [modal]="true"
+  [maximizable]="false"
+  (onHide)="hideModal()">
+
+  <ng-template pTemplate="header">
+    <span>{{ Header}}</span>
+  </ng-template>
+  <ng-template #modalContent></ng-template>
+  <ng-template pTemplate="footer">
+    <button 
+      type="button"
+      class="button"
+      (click)="hideModal()">Cerrar
+    </button>
+  </ng-template>
+
+</p-dialog>

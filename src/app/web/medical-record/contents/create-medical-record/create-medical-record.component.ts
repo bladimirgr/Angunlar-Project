@@ -1,0 +1,152 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { MedicalRecordService } from 'src/app/core/services/medical-record/medical-record.service';
+import { SymptomsResponse } from '../../interfaces/symptoms.interfaces';
+
+@Component({
+  selector: 'app-create-medical-record',
+  templateUrl: './create-medical-record.component.html',
+  styleUrls: ['./create-medical-record.component.css']
+})
+export class CreateMedicalRecordComponent implements OnInit {
+
+  @Input() id!: number;
+  @Input() service!: any
+  symptoms!: SymptomsResponse []
+  selectedSymptoms: string [] = [];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private medicalRecordService: MedicalRecordService
+  ) { }
+
+  ngOnInit() {
+    this.route.params.subscribe((resp) => { 
+      console.log('%c⧭', 'color: #ff6600', resp['id']);
+    })
+
+    this.symptoms = [
+      {
+        id: 1,
+        name: "Tos con o sin mucosidad"
+      },
+      {
+        id: 2,
+        name: "Dolor en el pecho"
+      },
+      {
+        id: 3,
+        name: "Cansancio"
+      },
+      {
+        id: 4,
+        name: "Estornudos"
+      },
+      {
+        id: 5,
+        name: "Congestión nasal"
+      },
+      {
+        id: 6,
+        name: "Moqueo"
+      },
+      {
+        id: 7,
+        name: "Dolor de garganta"
+      },
+      {
+        id: 8,
+        name: "Dolor de oído"
+      },
+      {
+        id: 9,
+        name: "Fiebre"
+      },
+      {
+        id: 10,
+        name: "Dificultad para dormir"
+      },
+      {
+        id: 11,
+        name: "Dolores corporales"
+      },
+      {
+        id: 12,
+        name: "Dolor de garganta"
+      },
+      {
+        id: 13,
+        name: "Escalofríos"
+      },
+      {
+        id: 14,
+        name: "Vómitos y diarrhea"
+      },
+      {
+        id: 15,
+        name: "Fatiga"
+      },
+      {
+        id: 16,
+        name: "Mal aliento"
+      },
+      {
+        id: 17,
+        name: "Enrojecimiento de la piel"
+      },
+      {
+        id: 18,
+        name: "Inflamación del área afectada"
+      },
+      {
+        id: 19,
+        name: "Tos"
+      },
+      {
+        id: 20,
+        name: "Conjuntivitis"
+      },
+      {
+        id: 21,
+        name: "Dolor o ardor al orinar"
+      },
+      {
+        id: 22,
+        name: "Sangre en la orina"
+      },
+      {
+        id: 23,
+        name: "Presión o retorcijones en la ingle"
+      }
+    ]
+
+  }
+
+  visitForm: FormGroup = this.formBuilder.group({
+    patientId:      [1],
+    reason:         ['',Validators.required],
+    description:    [],
+    dignostics:     [],
+    symptoms:       [],
+    service:        [],
+    status:         [],
+    isActive:       [true],
+    createdAt:      [],
+    updatedAt:      [],
+    createdBy:      [],
+    updatedBy:      [],
+  })
+
+
+  Create() {
+    console.log('%c⧭', 'color: #86bf60', this.visitForm.value);
+    // this.medicalRecordService.Create(this.visitForm.value).subscribe((resp) => {
+
+    //   console.log('%c⧭', 'color: #607339', resp);
+    // })
+
+  }
+
+}

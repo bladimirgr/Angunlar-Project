@@ -1,0 +1,267 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+    
+            <div class="col-lg-12">
+              <div class="p-5">
+
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4"></h1>
+                </div>
+
+                  <form [formGroup]="userForm">
+                    <div>
+                      <h6 class="text-muted">Datos de Usuarios<span class="text-secondary"></span></h6>
+                    </div>
+                    <div class="form-row">
+
+                      <div class="form-group col-6">
+                        <div class="form-group col-8">
+                          <span>Usuario</span>
+                          <input pInputText class="p-inputtext form-control" type="text" title="username" formControlName="username">
+                          <app-error-messages [control]="this.userForm.controls['username']"></app-error-messages>
+                        </div>
+                      
+                        <div class="form-group col-8">
+                          <span>Contraseña</span>
+                          <input pInputText class="p-inputtext form-control" type="password" title="password" formControlName="password">
+                          <app-error-messages [control]="this.userForm.controls['password']"></app-error-messages>                    
+                        </div>
+                        
+                      </div>
+  
+                      <div class="form-group col-6">
+                        
+                        <div class="form-group col-8">
+                          <span>Correo</span>
+                          <input pInputText class="p-inputtext form-control"  type="text" title="email" formControlName="email">
+                          <app-error-messages [control]="this.userForm.controls['email']"></app-error-messages>
+                        </div>
+                       
+                        <div class="form-group col-8">
+                          <span>Rol</span>
+                          <br>
+                          <p-dropdown placeholder="Seleccione su Rol" class="p-inputtext-sm " [virtualScroll]="true" [virtualScrollItemSize]="30" [options]="roles" formControlName="roles" optionValue="name"  optionLabel="name"></p-dropdown>
+                          <app-error-messages [control]="this.userForm.controls['roles']"></app-error-messages>
+                        </div>
+                        
+                      </div>
+                    
+                    </div>
+
+                  </form>
+
+                <form [formGroup]="commonForm">
+                  <div>
+                    <h6 class="text-muted">Datos de Contactos<span class="text-secondary"></span></h6>
+                  </div>
+                  <div class="form-row">
+                    <!-- Col- left -->
+                    <div class="form-group col-6">
+                      <div class="form-group col-8">
+                        <span>Nombres</span>
+                        <input  
+                          class="p-inputtext form-control"
+                          type="text" 
+                          title="firstName" 
+                          formControlName="firstName">
+                      </div>
+
+                      <div class="form-group col-6">
+                        <div formArrayName="documents">
+                          <div *ngFor="let document of document.controls; let i = index">
+                            <div *ngIf="i == 0" formGroupName="{{i}}">
+                              <span *ngIf="i == 0" >Cédula</span>
+                              <p-inputMask  class="p-inputtext-sm" title="documents" placeholder="Cédula" formControlName="number" mask="999-9999999-9"></p-inputMask>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <div class="form-group col-4">
+                        <span>Fecha de Nacimiento</span>
+                        <p-inputMask  formControlName="birthday" placeholder="dd/mm/yyyy" mask="99/99/9999"></p-inputMask>
+                      </div>
+                
+                      <div class="form-group col-4">
+                        <span>Nacionalidad</span>
+                        <br>
+                        <p-dropdown (onChange)="ngOnChanges(countries)" [options]="countries" placeholder="Seleccione su Nacionalidad" formControlName="nationalityId" optionValue="id"  optionLabel="description"></p-dropdown>
+                      </div>
+        
+                      <div class="form-group col-4">
+                        <span>Ocupación</span>
+                        <p-dropdown placeholder="Seleccione su Ocupación" formControlName="occupationId" optionValue="id"  optionLabel="name"></p-dropdown>
+                      </div>
+                      
+                    </div>
+
+                    <!-- Col-Right -->
+                    <div class="form-group col-6">
+                      
+                      <!-- Apellidos -->
+                      <div class="form-group col-8">
+                        <span>Apellidos</span>
+                        <input 
+                          class="p-inputtext-sm form-control"  
+                          type="text" 
+                          title="lastName" 
+                          formControlName="lastName">
+                      </div>
+      
+                      <!-- Documentos, Cédula, NSS -->
+                      <div class="form-group col-6" formArrayName="documents">
+                        <div *ngFor="let document of document.controls; let i = index">
+                          <div *ngIf="i == 1" formGroupName="{{i}}">
+                            <span *ngIf="i == 1">NSS</span>
+                            <br>
+                            <p-inputMask 
+                              class="p-inputtext-sm" 
+                              title="documents" 
+                              placeholder="NSS" 
+                              formControlName="number" 
+                              mask="99999999">
+                            </p-inputMask>
+                          </div>
+                        </div>
+                      </div> 
+                      
+                      <br>
+
+                      <!-- Sexo --> 
+                      <div class="form-group col-8 mb-3">
+                        <span>Sexo</span>
+                        <br>
+                        <p-radioButton class="mr-2" formControlName="sex" label="Mujer" [value]="0"></p-radioButton>
+                        <p-radioButton formControlName="sex" label="Hombre" [value]="1"></p-radioButton>
+                      </div>
+                      <br>
+                      
+                      <!-- Estado Civil -->
+                      <div class="form-group col-6">
+                        <span>Estado Civil</span>
+                        <p-dropdown placeholder="Seleccione estado civil" [options]="maritalStatus" formControlName="maritalStatus" optionValue="name"  optionLabel="name"></p-dropdown>
+                      </div>
+                    
+                    </div>
+
+                    <div class="form-group col-12">
+
+                      <div>
+                        <h6 class="text-muted">Correos<span class="text-secondary"></span></h6>
+                      </div>
+                      <!-- Correos -->
+                      <div class="form-row" formGroupName="emails">                      
+                        <div class="form-group form-group-sm col-md-4" *ngFor="let email of emails.controls; let i = index">
+                          <span>{{label2[i]}}</span>
+                          <div formGroupName="{{i}}">
+                            <input  
+                              placeholder="{{label2[i]}}"
+                              class="p-inputtext form-control"
+                              type="text" 
+                              title="email" 
+                              formControlName="email">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h6 class="text-muted">Télefonos<span class="text-secondary"></span></h6>
+                      </div>
+
+                      <!-- Telefonos -->
+                      <div class="form-row" formGroupName="phones">                      
+                          <div class="form-group form-group-sm col-md-4" *ngFor="let phone of phones.controls; let i = index">
+                            <span>{{label[i]}}</span>
+                            <div formGroupName="{{i}}">
+                              <p-inputMask
+                                class="phones"
+                                formControlName="number"
+                                mask="999-999-9999"
+                                placeholder="( ___ )  ___ - ___"
+                                [style]="{'width': '100%','height': '43px', 'border-radius': '5px', 'border-color': '#bfc9d4'}" >
+                              </p-inputMask>
+                            </div>
+                          </div>
+                      </div>
+  
+                      <!-- Direccion -->
+                      <div formGroupName="addresses">                        
+                          <div *ngFor="let address of addresses.controls; let i = index">
+                            <div>
+                              <h6 class="text-muted">Dirreción<span class="text-secondary"></span></h6>
+                            </div>
+                            <div class="form-row" formGroupName="{{i}}">
+                              <div class="form-group col-4">
+                                <label class="control-label">Ciudad</label>
+                                <p-dropdown
+                                  (onChange)="onChanges(provinces)"
+                                  optionLabel = "description"
+                                  optionValue = "city"
+                                  formControlName="city"
+                                  placeholder="Seleccione Ciudad"
+                                  filterBy="description"
+                                  [style]="{'width': '100%', 'height': '42.6px', 'border-radius': '5px', 'border-color': '#bfc9d4'}"
+                                  [options]="provinces"
+                                  [virtualScroll]="true"
+                                  [itemSize]="31"
+                                  [filter]="true"
+                                  [showClear]="true">
+                                </p-dropdown>
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="sector" class="control-label">Municipio</label>
+                                  <p-dropdown
+                                    optionLabel = "description"
+                                    optionValue = "description"
+                                    formControlName="neighborhood"
+                                    placeholder="Seleccione o Digite su Sector"
+                                    filterBy="description"
+                                    [style]="{'width': '100%', 'height': '42.6px', 'border-radius': '5px', 'border-color': '#bfc9d4'}"
+                                    [options]="township[i]"
+                                    [virtualScroll]="true"
+                                    [itemSize]="31"
+                                    [filter]="true"
+                                    [editable]="true"
+                                    [showClear]="true">
+                                  </p-dropdown>
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="calle" class="control-label">Calle</label>
+                                <input
+                                  pInputText
+                                  formControlName="street"
+                                  [style]="{'width': '100%', 'height': '42.6px', 'border-radius': '5px', 'border-color': '#bfc9d4'}"
+                                  type="text"
+                                  class="form-control"
+                                  id="calle"
+                                  placeholder="Digite Calle y Número de vivienda">
+                              </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                 
+                </form>
+
+                <br><br>
+                <div class="mb-3">
+                  <button pButton type="button" class="p-button-danger p-button-rounded">Cancelar</button>  
+                  <button pButton type="button" class="p-button-warning p-button-rounded">Limpiar</button>  
+                  <button pButton type="button" class="float-right p-button-raised p-button-rounded" (click)="Create()">Crear</button>  
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+

@@ -1,0 +1,74 @@
+<div class="navbar-nav bg-gradient-primary sidebar sidebar-dark">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="pi pi-shield"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Florence <sup>2</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <ul>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" [routerLink]="'dashboard'" routerLinkActive="active">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+    </ul>
+
+     <!-- Divider -->
+     <hr class="sidebar-divider">
+
+     <!-- Heading Pacients -->
+     <div class="sidebar-heading">
+        Citas
+     </div>
+     <ul>
+         <li class="nav-item">
+             <a class="nav-link" [routerLink]="'appointment/list'">
+                 <span>Pacientes Citados</span>
+             </a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" [routerLink]="'appointment'">
+                <span>Agregar Cita</span>
+            </a>
+        </li>
+     </ul>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading Pacients -->
+    <div class="sidebar-heading">
+        Doctor o Pacientes
+    </div>
+    <ul>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'commons'">
+                <span>Crear Doctor o Pacientes</span>
+            </a>
+        </li>
+    </ul>
+
+     <!-- Divider -->
+     <hr class="sidebar-divider">
+
+     <!-- Heading Pacients -->
+     <div class="sidebar-heading">
+        Historial Médico
+     </div>
+     <ul>
+         <li class="nav-item">
+             <a class="nav-link" [routerLink]="''">
+                 <span>Historia</span>
+             </a>
+         </li>
+     </ul>
+    
+</div>
