@@ -1,3 +1,18 @@
-<p>
-  list-patients works!
-</p>
+<div class="card">
+  <p-table [value]="patientList" selectionMode="single" [(selection)]="selectedPatient"  dataKey="record" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Record</th>
+              <th>Nombres</th>
+              <th>Seguro</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-patientList>
+          <tr [pSelectableRow]="patientList">
+              <td>{{patientList.record}}</td>
+              <td>{{patientList.firstName}} {{patientList.lastName}}</td>
+              <td>{{patientList.insurance}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>

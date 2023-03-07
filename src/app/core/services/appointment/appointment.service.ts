@@ -17,7 +17,11 @@ export class AppointmentService extends BaseService<AppointmentDataResponse, App
     super(httpClient);
   }
 
-  GetByPatientId(id?: number): Observable<AppointmentResponse[]> {
-    return this.httpClient.get<AppointmentResponse[]>(`${this.url}?patientId=${id}`)
+  GetByPatientId(id?: number, service?: string): Observable<AppointmentResponse[]> {
+    return this.httpClient.get<AppointmentResponse[]>(`${this.url}?patientId=${id}&?service=${service}`)
+  }
+
+  GetAppointment(id?: number, service?: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.url}?patientId=${id}&service=${service}`)
   }
 }

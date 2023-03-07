@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PatientsRoutingModule } from './patients-routing.module';
 import { ListPatientsComponent } from './contents/list-patients/list-patients.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {InputTextModule} from 'primeng/inputtext';
+
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import {InputTextModule} from 'primeng/inputtext';
     PatientsRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
-    InputTextModule
+    InputTextModule,
+    TableModule
   ],
   exports: [
     ListPatientsComponent

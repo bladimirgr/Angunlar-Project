@@ -6,10 +6,12 @@ import { AppointmentRoutingModule } from './appointment-routing.module';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
 
 import { CreateAppointmentComponent } from './contents/create-appointment/create-appointment.component';
 import { ListAppointmentComponent } from './contents/list-appointment/list-appointment.component';
 import { CommonsModule } from '../common/commons.module';
+import { PatientsModule } from '../patients/patients.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { CommonsModule } from '../common/commons.module';
     CalendarModule,
     DropdownModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule,
+    PatientsModule
   ],
   exports: [
   ]

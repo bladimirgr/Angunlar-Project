@@ -9,16 +9,19 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ListboxModule } from 'primeng/listbox';
+import { TableModule } from 'primeng/table';
 
 import { DashboardMedicalComponent } from './components/dashboard-medical/dashboard-medical.component';
 import { EncyclopediaDiseasesComponent } from './components/encyclopedia-diseases/encyclopedia-diseases.component';
 import { CreateMedicalRecordComponent } from './contents/create-medical-record/create-medical-record.component';
+import { ListMedicalRecordComponent } from './contents/list-medical-record/list-medical-record.component';
 
 @NgModule({
   declarations: [
     DashboardMedicalComponent,
     EncyclopediaDiseasesComponent,
-    CreateMedicalRecordComponent
+    CreateMedicalRecordComponent,
+    ListMedicalRecordComponent
   ],
   imports: [
     CommonModule,
@@ -30,11 +33,14 @@ import { CreateMedicalRecordComponent } from './contents/create-medical-record/c
     ButtonModule,
     InputTextModule,
     CheckboxModule,
-    ListboxModule
+    ListboxModule,
+    TableModule
   ],
   exports: [
     DashboardMedicalComponent,
-    EncyclopediaDiseasesComponent
+    EncyclopediaDiseasesComponent,
+    CreateMedicalRecordComponent,
+    ListMedicalRecordComponent
   ]
 })
 export class MedicalRecordModule { }

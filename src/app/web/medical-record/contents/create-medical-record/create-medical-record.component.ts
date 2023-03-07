@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AppointmentService } from 'src/app/core/services/appointment/appointment.service';
 import { MedicalRecordService } from 'src/app/core/services/medical-record/medical-record.service';
+import { PatientsService } from 'src/app/core/services/patients/patients.service';
+import Swal from 'sweetalert2';
 import { SymptomsResponse } from '../../interfaces/symptoms.interfaces';
 
 @Component({
@@ -9,9 +12,10 @@ import { SymptomsResponse } from '../../interfaces/symptoms.interfaces';
   templateUrl: './create-medical-record.component.html',
   styleUrls: ['./create-medical-record.component.css']
 })
-export class CreateMedicalRecordComponent implements OnInit {
+export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
 
   @Input() id!: number;
+  patientName!: string
   @Input() service!: any
   symptoms!: SymptomsResponse []
   selectedSymptoms: string [] = [];
@@ -19,13 +23,27 @@ export class CreateMedicalRecordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private medicalRecordService: MedicalRecordService
+    private medicalRecordService: MedicalRecordService,
+    private patientsService: PatientsService,
+    private appointmentService: AppointmentService
   ) { }
 
-  ngOnInit() {
+
+  ngAfterViewInit(): void {
     this.route.params.subscribe((resp) => { 
-      console.log('%c⧭', 'color: #ff6600', resp['id']);
+      this.patientsService.GetById(resp['id']).subscribe((resp) => {
+
+        this.visitForm.controls['patientId'].patchValue(resp['id']);
+        this.visitForm.controls['patientName'].patchValue(resp?.firstName + ' ' + resp?.lastName);
+  
+      })
     })
+  }
+
+  ngOnInit() {
+    // this.route.params.subscribe((resp) => { 
+    //   console.log('%c⧭', 'color: #ff6600', resp['id']);
+    // })
 
     this.symptoms = [
       {
@@ -125,13 +143,14 @@ export class CreateMedicalRecordComponent implements OnInit {
   }
 
   visitForm: FormGroup = this.formBuilder.group({
-    patientId:      [1],
+    patientId:      ['', Validators.required],
+    patientName:    ['', Validators.required],
     reason:         ['',Validators.required],
     description:    [],
-    dignostics:     [],
-    symptoms:       [],
-    service:        [],
-    status:         [],
+    dignostics:     [''],
+    symptoms:       ['', Validators.required],
+    service:        ['', Validators.required],
+    status:         ['Realizada', Validators.required],
     isActive:       [true],
     createdAt:      [],
     updatedAt:      [],
@@ -141,11 +160,28 @@ export class CreateMedicalRecordComponent implements OnInit {
 
 
   Create() {
-    console.log('%c⧭', 'color: #86bf60', this.visitForm.value);
-    // this.medicalRecordService.Create(this.visitForm.value).subscribe((resp) => {
+    if(this.visitForm.valid) {
+      this.medicalRecordService.Create(this.visitForm.value).subscribe((x) => {
+        if(x) {
+          this.appointmentService.GetAppointment(x.patientId, x.service).subscribe((appointment) => {
+            this.appointmentService.Delete(appointment[0].id).subscribe((a) => {
+              this.alertMessage(x)
+            })
+          })
+        }
+      })
+    }
+  }
 
-    //   console.log('%c⧭', 'color: #607339', resp);
-    // })
+
+  alertMessage(param: any) {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: `${param}`,
+      showConfirmButton: false,
+      timer: 1500
+    })
 
   }
 

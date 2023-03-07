@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { PatientsService } from '../../../../core/services/patients/patients.service';
 
 @Component({
@@ -8,6 +8,9 @@ import { PatientsService } from '../../../../core/services/patients/patients.ser
 })
 export class ListPatientsComponent implements OnInit {
 
+  patientList!: any []
+  @Input() selectedPatient!: any
+
   constructor(
     private patientsService: PatientsService
   ) { }
@@ -15,8 +18,7 @@ export class ListPatientsComponent implements OnInit {
   ngOnInit() {
 
     this.patientsService.GetList().subscribe((resp) => {
-
-      console.log('%c⧭', 'color: #007300', resp);
+      this.patientList = resp as unknown as [];
     })
   }
 

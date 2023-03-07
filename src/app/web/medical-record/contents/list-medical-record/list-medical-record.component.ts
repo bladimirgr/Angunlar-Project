@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MedicalRecordService } from 'src/app/core/services/medical-record/medical-record.service';
+import { MedicalRecordResponse } from '../../interfaces/medical-record.interfaces';
 
 @Component({
   selector: 'app-list-medical-record',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListMedicalRecordComponent implements OnInit {
 
-  constructor() { }
+  list: any [] = [];
+
+  constructor(
+    private medicalRecordService: MedicalRecordService 
+  ) {}
 
   ngOnInit() {
+
+    this.medicalRecordService.GetList().subscribe((resp) => {
+      this.list = resp as unknown as [];
+
+      console.log('%c⧭', 'color: #733d00', this.list);
+    })
   }
 
 }

@@ -1,7 +1,9 @@
 export interface MedicalRecordRequest {
     patientId:      number;
+    patientName:    string;
     reason:         string;
     description:    string;
+    service:        string;
     symptons:       string[];
     dignostics:     string;
     status:         string
@@ -16,8 +18,10 @@ export interface MedicalRecordRequest {
 export interface MedicalRecordResponse {
     id:             number;
     patientId:      number;
+    patientName:    string;
     reason:         string;
     description:    string;
+    service:        string;
     symptons:       string[];
     dignostics:     string;
     status:         string

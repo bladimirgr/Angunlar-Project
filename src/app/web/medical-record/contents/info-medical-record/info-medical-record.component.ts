@@ -23,22 +23,11 @@ export class InfoMedicalRecordComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe((resp) => {
-      this.patientId =  resp['id']
-      this.medicalRecordService.GetByPatientId(resp['id']).subscribe((resp) => {
-
-        this.history = resp as unknown as [];
-        
-        console.log('%c⧭', 'color: #ace2e6', this.history.length);
-    
-        this.patientsService.GetById(this.patientId).subscribe((resp) => {
-          this.patient = resp;
-
-
-          console.log('%c⧭', 'color: #cc7033', resp);
-          
+      this.medicalRecordService.GetById(resp['id']).subscribe((history) => {
+        this.history = history as unknown as any;
+        this.patientsService.GetById(history.patientId).subscribe((patient) => {
+          this.patient = patient;
         })
-
-        console.log('%c⧭', 'color: #5200cc', resp);
       })
     })
 

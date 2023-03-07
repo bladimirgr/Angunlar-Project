@@ -69,13 +69,13 @@
               <figure>
                 <figcaption class="blockquote">
                   <cite>
-                    {{history[0].service}}
+                    {{history.service}}
                   </cite>
                 </figcaption>
                 <figcaption class="blockquote">
                   <span>Fecha:</span> 
                   <cite>
-                    {{history[0].createdAt}}
+                    {{history.createdAt}}
                   </cite>
                 </figcaption>
     
@@ -84,7 +84,7 @@
                       <span>Motivo:</span>  
                     </cite>
                     <blockquote>
-                      {{history[0].reason}}
+                      {{history.reason}}
                     </blockquote>
                   </figcaption>
           
@@ -93,7 +93,7 @@
                       Descripción de la Consulta:
                     </cite>
                     <blockquote>
-                      {{history[0].description}}
+                      {{history.description}}
                     </blockquote>
                   </figcaption>
     
@@ -103,7 +103,7 @@
             <div class="col-4">
               <figcaption class="blockquote">
                 <cite>
-                  <span>Doctor:</span> {{history[0].createdBy}}
+                  <span>Doctor:</span> {{history.createdBy}}
                 </cite>
               </figcaption>
 
@@ -113,9 +113,9 @@
               </cite>
               <blockquote>
                 <ul>
-                  <li>{{history[0].symptoms[0]}}</li>
-                  <li>{{history[0].symptoms[1]}}</li>
-                  <li>{{history[0].symptoms[2]}}</li>
+                  <li >{{history.symptoms[0]}}</li>
+                  <li>{{history.symptoms[1]}}</li>
+                  <li>{{history.symptoms[2]}}</li>
                 </ul>
               </blockquote>
             </figcaption>
@@ -125,7 +125,7 @@
                 Diagnostico:
               </cite>
               <blockquote>
-                {{history[0].dignostics}}
+                {{history.dignostics}}
               </blockquote>
             </figcaption>
             </div>

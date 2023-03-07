@@ -4,6 +4,8 @@ import { AppointmentService } from 'src/app/core/services/appointment/appointmen
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DoctorResponse } from 'src/app/web/doctors/interfaces/doctor.intefaces';
 import { PatientsService } from '../../../../core/services/patients/patients.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-appointment',
@@ -17,16 +19,17 @@ export class CreateAppointmentComponent implements OnInit {
   name!: string;
   patientId!: number;
   currentDate: any;
+  display: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private doctorsService: DoctorsService,
     private appointmentService: AppointmentService,
-    private patientsService: PatientsService
+    private patientsService: PatientsService,
+    private router: Router
   ) { }
 
   appointmentForm: FormGroup = this.formBuilder.group({
-    date:        [],
     record:      [],
     service:     [Validators.required],
     patientId:   [],
@@ -34,7 +37,7 @@ export class CreateAppointmentComponent implements OnInit {
     doctorId:    [Validators.required],
     status:      ['Pendiente Consulta'],
     isActive:    [true],
-    createdAt:   [new Date().toISOString().slice(0, 10)],
+    createdAt:   [],
     updatedAt:   [],
     createdBy:   [localStorage.getItem('x-user')],
     updatedBy:   []
@@ -58,30 +61,46 @@ export class CreateAppointmentComponent implements OnInit {
 
     this.doctorsService.GetList().subscribe((resp: DoctorResponse []) => {
       this.doctors = resp;
-
-      console.log('%c⧭', 'color: #0088cc', resp);
     })
 
   }
 
   search(event: any) {
     this.patientsService.GetPatient(event.target.value).subscribe((resp) => {
-      this.name = resp[0]?.firstName +  resp[0]?.lastName;
+      var firstName = resp[0]?.firstName
+      var lastName = resp[0]?.lastName
+      this.name = firstName + ' ' + lastName
       this.appointmentForm.controls["patientId"].patchValue(resp[0]?.id);
     })
   }
 
-  Create() {
+  create(): void {
     if(this.appointmentForm.valid) {
-      console.log('%c⧭', 'color: #ff6600', this.appointmentForm.value);
-      // this.appointmentService.Create(this.appointmentForm.value).subscribe((resp) => {
-      // })
+      this.appointmentService.Create(this.appointmentForm.value).subscribe((resp) => {
+        if(resp) {
+          this.alertMessage(resp.record,resp.patientName)
+          this.router.navigateByUrl('appointment/list')
+        }
+      })
     } else {
       this.appointmentForm.markAllAsTouched
     }
-    console.log('%c⧭', 'color: #ff6600', this.appointmentForm.value);
   }
 
-  Clear() {
+  showDialog() {
+    this.display = true;
+  } 
+
+  clear(): void {
+    this.appointmentForm.reset();
   }
+
+  alertMessage(record: string, patientName: string): void {
+    Swal.fire({
+      title: `Record: ${record}`,
+      text: `Nombre Paciente: ${patientName}`,
+      icon: 'success',
+    })
+  }
+
 }

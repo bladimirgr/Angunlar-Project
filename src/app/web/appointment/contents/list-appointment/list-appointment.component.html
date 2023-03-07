@@ -39,7 +39,7 @@
                             <th style="min-width:8rem">
                               <div class="flex justify-content-center align-items-center">
                                 Servicio
-                                <p-columnFilter type="text" field="appointmentList.service.name" display="menu"></p-columnFilter>
+                                <p-columnFilter type="text" field="appointmentList.service" display="menu"></p-columnFilter>
                               </div>
                             </th>
                             <th style="min-width:8rem">
@@ -66,17 +66,17 @@
                         <tr>
                           <td>{{appointmentList.record}}</td>
                           <td>{{appointmentList.patientName}}</td>
-                          <td>{{appointmentList.service.name}}</td>
-                          <td>{{appointmentList.doctor.firstName}} {{appointmentList.doctor.lastName}}</td>
+                          <td>{{appointmentList.service}}</td>
+                          <td></td>
                           <td>{{appointmentList.createdAt}}</td>
                           <td>{{appointmentList.status}}</td>
                           <td *ngIf="appointmentList.status === 'Pendiente Consulta'">
-                            <a routerLink="/medical-record/{{appointmentList.patientId}}" title="Realizar Consulta"><i class="pi pi-file "></i></a>                           
+                            <a routerLink="/medical-record/{{appointmentList.patientId}}/{{appointmentList.service}}" title="Realizar Consulta"><i class="pi pi-file "></i></a>                           
+                            <a (click)="delete(appointmentList.id)" title="Eliminar Cita"><i class="pi pi-delete-left"></i></a>                           
                           </td>
+                      
                           <td *ngIf="appointmentList.status === 'Realizado'">
                             <a routerLink="/appointment/update/{{appointmentList.patientId}}" title="Editar Consulta"><i class="pi pi-file-edit"></i></a>                           
-                          </td>
-                          <td *ngIf="appointmentList.status === 'Realizado'">
                             <a routerLink="/medical-record/clinic-history/{{appointmentList.patientId}}" title="Ver Consultas"><i class="pi pi-book"></i></a>                           
                           </td>
                         </tr>

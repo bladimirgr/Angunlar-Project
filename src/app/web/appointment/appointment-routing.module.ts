@@ -6,7 +6,7 @@ import { UpdateAppointmentComponent } from './contents/update-appointment/update
 
 const routes: Routes = [
   {
-    path: "all",
+    path: "create",
     component: CreateAppointmentComponent
   },
   {

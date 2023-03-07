@@ -25,23 +25,19 @@ export class DashboardMedicalComponent implements OnInit {
 
   constructor(
     private patientsService: PatientsService,
-    private appointmentService: AppointmentService  ,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
 
     this.route.params.subscribe((resp) => {
-       this.patientId = resp['id'];
+      this.service = resp['service'];
+      this.patientId = resp['id'];
 
       this.patientsService.GetById(this.patientId).subscribe((resp) => {
         this.patient = resp;
-
-        this.appointmentService.GetByPatientId(this.patientId).subscribe((resp) => {
-          this.service = resp[0]?.service
-        })
-  
       })
+
     })
 
   }
