@@ -19,6 +19,8 @@ export class PatientsService extends BaseService<PatientsDataResponse,PatientsRe
         return this.httpClient.get<any>(`${this.url}/?record=${param}`)
     }
 
-
+    GetPatientId(param: string | null): Observable<any> {
+        return this.httpClient.get<any>(`${this.url}/?userId=${param}`)
+    }
     
 }

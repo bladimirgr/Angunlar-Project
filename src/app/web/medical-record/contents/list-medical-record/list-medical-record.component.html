@@ -12,7 +12,7 @@
                 </div>
 
               <div class="card">
-                <p-table #dt1 [value]="list" dataKey="id"
+                <p-table #dt1 [value]="medicalList" dataKey="id"
                     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
                     [globalFilterFields]="['name','country.name','representative.name','status']">
                     <ng-template pTemplate="caption">
@@ -59,15 +59,15 @@
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-list>
+                    <ng-template pTemplate="body" let-medicalList>
                         <tr>
-                          <td>{{list.patientName}}</td>
-                          <td>{{list.service}}</td>
-                          <td>{{list.reason}}</td>
-                          <td>{{list.symptoms[1]}}</td>
-                          <td>{{list.dignostics}}</td>
-                          <td *ngIf="list.status === 'Realizada'">
-                            <a routerLink="/medical-record/info/info/{{list.id}}" title="Ver Reporte Completo"><i class="pi pi-file "></i></a>                           
+                          <td>{{medicalList.patientName}}</td>
+                          <td>{{medicalList.service}}</td>
+                          <td>{{medicalList.reason}}</td>
+                          <td>{{medicalList.symptoms[1]}}</td>
+                          <td>{{medicalList.dignostics}}</td>
+                          <td *ngIf="medicalList.status === 'Realizada'">
+                            <a routerLink="/medical-record/info/info/{{medicalList.id}}" title="Ver Reporte Completo"><i class="pi pi-file "></i></a>                           
                           </td>
                         </tr>
                     </ng-template>

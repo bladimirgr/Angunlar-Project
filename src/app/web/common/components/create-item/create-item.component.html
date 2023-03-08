@@ -88,12 +88,12 @@
                       <div class="form-group col-4">
                         <span>Nacionalidad</span>
                         <br>
-                        <p-dropdown (onChange)="ngOnChanges(countries)" [options]="countries" placeholder="Seleccione su Nacionalidad" formControlName="nationalityId" optionValue="id"  optionLabel="description"></p-dropdown>
+                        <p-dropdown (onChange)="onChanges(countries)" [options]="countries" placeholder="Seleccione su Nacionalidad" formControlName="nationalityId" optionValue="id"  optionLabel="description"></p-dropdown>
                       </div>
         
                       <div class="form-group col-4">
                         <span>Ocupación</span>
-                        <p-dropdown placeholder="Seleccione su Ocupación" formControlName="occupationId" optionValue="id"  optionLabel="name"></p-dropdown>
+                        <p-dropdown [options]="occupations"  placeholder="Seleccione su Ocupación" formControlName="occupationId" optionValue="id"  optionLabel="name"></p-dropdown>
                       </div>
                       
                     </div>
@@ -145,6 +145,15 @@
                         <p-dropdown placeholder="Seleccione estado civil" [options]="maritalStatus" formControlName="maritalStatus" optionValue="name"  optionLabel="name"></p-dropdown>
                       </div>
                     
+                      <div *ngIf="this.userForm.controls['roles'].value === 'Paciente'" class="form-group col-6">
+                        <span>Seguro Médico</span>
+                        <p-dropdown placeholder="Seleccione Seguro" [options]="insurances" formControlName="insurance" optionValue="name"  optionLabel="name"></p-dropdown>
+                      </div>
+
+                      <div *ngIf="this.userForm.controls['roles'].value === 'Doctor'" class="form-group col-6">
+                        <span>Especialidad</span>
+                        <p-dropdown placeholder="Seleccione Especialidad" [options]="specialty" formControlName="specialtyId" optionValue="id"  optionLabel="name"></p-dropdown>
+                      </div>
                     </div>
 
                     <div class="form-group col-12">
@@ -197,7 +206,6 @@
                               <div class="form-group col-4">
                                 <label class="control-label">Ciudad</label>
                                 <p-dropdown
-                                  (onChange)="onChanges(provinces)"
                                   optionLabel = "description"
                                   optionValue = "city"
                                   formControlName="city"
@@ -250,11 +258,14 @@
                  
                 </form>
 
-                <br><br>
+                <br>
                 <div class="mb-3">
-                  <button pButton type="button" class="p-button-danger p-button-rounded">Cancelar</button>  
-                  <button pButton type="button" class="p-button-warning p-button-rounded">Limpiar</button>  
-                  <button pButton type="button" class="float-right p-button-raised p-button-rounded" (click)="Create()">Crear</button>  
+                  <button pButton type="button" class="p-button-danger p-button-rounded" 
+                    (click)="cancel()">Cancelar</button>  
+                  <button pButton type="button" class="p-button-warning p-button-rounded" 
+                    (click)="clear()" >Limpiar</button>  
+                  <button pButton type="button" class="float-right p-button-raised p-button-rounded" 
+                    (click)="Create()">Crear</button>  
                 </div>
 
               </div>

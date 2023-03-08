@@ -44,12 +44,6 @@
                             </th>
                             <th style="min-width:8rem">
                               <div class="flex justify-content-center align-items-center">
-                                Doctor
-                                <p-columnFilter type="text" field="appointmentList.doctor.firstName, appointmentList.doctor.lastName" display="menu"></p-columnFilter>
-                              </div>
-                            </th>
-                            <th style="min-width:8rem">
-                              <div class="flex justify-content-center align-items-center">
                                 Fecha
                                 <p-columnFilter type="text" field="appointmentList.createdAt" display="menu"></p-columnFilter>
                               </div>
@@ -67,8 +61,7 @@
                           <td>{{appointmentList.record}}</td>
                           <td>{{appointmentList.patientName}}</td>
                           <td>{{appointmentList.service}}</td>
-                          <td></td>
-                          <td>{{appointmentList.createdAt}}</td>
+                          <td>{{appointmentList.createdAt | date}}</td>
                           <td>{{appointmentList.status}}</td>
                           <td *ngIf="appointmentList.status === 'Pendiente Consulta'">
                             <a routerLink="/medical-record/{{appointmentList.patientId}}/{{appointmentList.service}}" title="Realizar Consulta"><i class="pi pi-file "></i></a>                           

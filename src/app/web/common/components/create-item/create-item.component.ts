@@ -1,24 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { PatientsService } from '../../../../core/services/patients/patients.service';
 import { DoctorsService } from '../../../../core/services/doctor/doctors.service';
 import { ProvincesService } from '../../../../core/services/provinces/province.service';
 import { Provinces, Countries, Municipalities } from '../../../../shared/models/provinces.interfaces';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { OccupationResponse } from '../../interfaces/occupations';
+import { OccupationService } from '../../../../core/services/occupation/occupation.service';
+import { SpecialtyService } from 'src/app/core/services/specialty/specialty.service';
+import { SpecialtyResponse } from '../../interfaces/specialty';
 
 @Component({
   selector: 'app-create-item',
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.css']
 })
-export class CreateItemComponent implements OnInit {
+export class CreateItemComponent implements OnInit, OnChanges {
 
   maritalStatus: any [] = [];
+  occupations: OccupationResponse [] = [];
+  specialty: any [] = [];
   roles: any [] = [];
   label: string[] = ['Casa', 'Trabajo', 'Otra'];
   label2: string[] = ['Personal', 'Trabajo', 'Otra'];
   userId: string = '';
-
+  insurances: any [] = [];
   countries: Countries [] = [];
   provinces: Provinces [] = [];
   township: any [] = [];
@@ -28,12 +36,15 @@ export class CreateItemComponent implements OnInit {
     private usersService: UsersService,
     private patientsService: PatientsService,
     private doctorsService: DoctorsService,
-    private provincesService: ProvincesService
+    private provincesService: ProvincesService,
+    private occupationService: OccupationService,
+    private specialtyService: SpecialtyService,
+    private router: Router
   ) { }
 
   userForm: FormGroup = this.formBuilder.group({
     username:  ['',[Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
-    email:     ['',Validators.required, Validators.email],
+    email:     ['',Validators.required],
     password:  ['',Validators.required],
     isActive:  [true],
     roles:     ['',Validators.required]
@@ -42,21 +53,21 @@ export class CreateItemComponent implements OnInit {
   commonForm: FormGroup = this.formBuilder.group({
     userId:         [this.userId],
     record:         [],
-    occupationId:   [],
-    firstName:      [],
-    lastName:       [],
-    insurance:      [],
-    sex:            [],
-    maritalStatus:  [],
-    birthday:       [],
-    nationalityId:  [],
-    specialtyId:    [],
-    status:         [],
+    occupationId:   [''],
+    firstName:      ['',[Validators.required,Validators.minLength(3)]],
+    lastName:       ['',[Validators.required,Validators.minLength(3)]],
+    insurance:      [''],
+    sex:            [''],
+    maritalStatus:  [''],
+    birthday:       [''],
+    nationalityId:  [''],
+    specialtyId:    [''],
+    status:         [''],
     isActive:       [true],
-    createdAt:      [],
-    updatedAt:      [],
-    createdBy:      [],
-    updatedBy:      [],
+    createdAt:      [new Date()],
+    updatedAt:      [''],
+    createdBy:      [localStorage.getItem('x-user')],
+    updatedBy:      [''],
     documents: this.formBuilder.array([]),
     phones: this.formBuilder.array([]),
     addresses: this.formBuilder.array([]),
@@ -76,6 +87,10 @@ export class CreateItemComponent implements OnInit {
         description: "Republica Dominicana"
       }
     ]
+
+    this.specialtyService.GetList().subscribe((specialty) => {
+      this.specialty = specialty as unknown as SpecialtyResponse [];
+    })
 
     this.maritalStatus = [
       {
@@ -98,6 +113,33 @@ export class CreateItemComponent implements OnInit {
         name: "Paciente"
       }
     ]
+
+    this.insurances = [
+      {
+        id: 1,
+        name: "Senasa Susidiado"
+      },
+      {
+        id: 2,
+        name: "Senasa Contributivo"
+      },
+      {
+        id: 3,
+        name: "Senasa Pensionado"
+      },
+      {
+        id: 4,
+        name: "Humanoo"
+      },
+      {
+        id: 5,
+        name: "Mapfre Salud"
+      }
+    ]
+
+    this.occupationService.GetList().subscribe((occupation) => {
+      this.occupations = occupation as unknown as OccupationResponse [];
+    })
 
   }
 
@@ -164,70 +206,103 @@ export class CreateItemComponent implements OnInit {
   }
 
   Create(): void {
-
-
-    console.log('%c⧭', 'color: #99adcc', this.commonForm.value);
-    // if(this.userForm.valid) {
-    //   //Si el formulario de Usuario es valido, lo crea.
-    //   this.usersService.Create(this.userForm.value).subscribe((resp) => {
+    if(this.userForm.valid) {
+      //Si el formulario de Usuario es valido, lo crea.
+      this.usersService.Create(this.userForm.value).subscribe((resp) => {
         
-    //     if(resp.succeeded) {
+        if(resp.succeeded) {
 
-    //       // Si el usuario es creado valida el Rol, Si los datos son validos lo crea
-    //       if(this.commonForm.valid && resp.data.roles === "Doctor") {
+          // Si el usuario es creado valida el Rol, Si los datos son validos lo crea
+          if(this.commonForm.valid && resp.roles === "Doctor") {
 
-    //         this.commonForm.value.userId = resp.data.id;
+            this.commonForm.value.userId = resp.data.id;
 
-    //         this.doctorsService.Create(this.commonForm.value).subscribe((doctor) => {
+            this.doctorsService.Create(this.commonForm.value).subscribe((doctor) => {
+              this.alertMessage();
 
-    //           console.log('%c⧭', 'color: #1d3f73', "Crear Doctor", doctor);
+            })
 
-    //         })
+          } else if (this.commonForm.valid && resp.data.roles === "Paciente"){
 
-    //       } else if (this.commonForm.valid && resp.data.roles === "Paciente"){
-
-    //         this.commonForm.value.userId = resp.data.id;
+            this.commonForm.value.userId = resp.data.id;
             
-    //         this.patientsService.Create(this.commonForm.value).subscribe((patient) => {
+            this.patientsService.Create(this.commonForm.value).subscribe((patient) => {
+              this.alertMessage();
+            })
+          }
 
-    //           console.log('%c⧭', 'color: #cc0088', "Crear paciente", patient);
-    //         })
-    //       }
-         
+        } else if(!resp.succeeded) {
+          Swal.fire({
+            title: 'Error en al crear',
+            icon: 'error',
+            iconHtml: 'X',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar',
+            showCancelButton: true,
+            showCloseButton: true
+          })
+        }
 
-    //     } else if(!resp.succeeded) {
-          
-    //       console.log('%c⧭', 'color: #bfffc8', "No se creo el usuario");
-    //     }
+      })
 
-    //   })
-
-    // } else {
-
-    //   this.userForm.markAllAsTouched();
-    //   this.commonForm.markAllAsTouched();
-    // }
+    } else {
+      this.userForm.markAllAsTouched();
+      this.commonForm.markAllAsTouched();
+    }
   }
 
-  ngOnChanges(country: any): void {
-    
+  onChanges(country: any): void {
     if(country) {
-
       this.provincesService.GetList().subscribe((resp: Provinces[]) => {
-
+  
         this.provinces = resp;
-
+  
         this.township = resp.map((x) => x.municipalities)
         
       })
-    }    
+    }
+  }    
+
+  ngOnChanges(): void {
+
   }
 
-  onChanges(province: any): void {
-
-
+  clear(): void {
+    this.userForm.reset();
+    this.commonForm.reset();
   }
 
+  cancel(): void {
+    if(this.userForm.dirty && this.commonForm.dirty) {
+      Swal.fire({
+        title: 'Se perderan los datos desea continuar?',
+        icon: 'question',
+        iconHtml: '?',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        showCloseButton: true
+      }).then((result) => {
+        if(result.isConfirmed) {
+          this.router.navigateByUrl('appointment/list');
+        }
+      })
+    } else {
+      this.router.navigateByUrl('appointment/list')
+    }
+  }
+
+  alertMessage(): void {
+    Swal.fire({
+      title: 'Usuario Creado',
+      icon: 'success',
+      iconHtml: '!',
+    }).then((result) => {
+      if(result.value) {
+        this.router.navigateByUrl('appointment/list');
+      }
+    })
+  }
 
 
 }

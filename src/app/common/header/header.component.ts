@@ -7,14 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  username!: string | null
+  username!: string | null;
 
   constructor() { }
 
   ngOnInit(): void {
 
     this.username = localStorage.getItem('x-user')
-    
   }
 
 }

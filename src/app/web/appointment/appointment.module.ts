@@ -12,6 +12,7 @@ import { CreateAppointmentComponent } from './contents/create-appointment/create
 import { ListAppointmentComponent } from './contents/list-appointment/list-appointment.component';
 import { CommonsModule } from '../common/commons.module';
 import { PatientsModule } from '../patients/patients.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PatientsModule } from '../patients/patients.module';
     FormsModule, 
     ReactiveFormsModule,
     DialogModule,
-    PatientsModule
+    PatientsModule,
+    SharedModule
   ],
   exports: [
   ]

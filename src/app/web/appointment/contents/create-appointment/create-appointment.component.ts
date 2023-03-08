@@ -30,14 +30,14 @@ export class CreateAppointmentComponent implements OnInit {
   ) { }
 
   appointmentForm: FormGroup = this.formBuilder.group({
-    record:      [],
-    service:     [Validators.required],
+    record:      ['',Validators.required],
+    service:     ['',Validators.required],
     patientId:   [],
-    patientName: [],
-    doctorId:    [Validators.required],
+    patientName: ['',Validators.required],
+    doctorId:    ['',Validators.required],
     status:      ['Pendiente Consulta'],
     isActive:    [true],
-    createdAt:   [],
+    createdAt:   ['',Validators.required],
     updatedAt:   [],
     createdBy:   [localStorage.getItem('x-user')],
     updatedBy:   []
@@ -45,7 +45,7 @@ export class CreateAppointmentComponent implements OnInit {
   })
 
   ngOnInit() {
-   
+
     this.currentDate = new Date().toISOString().slice(0, 10);
 
     this.services = [
@@ -83,7 +83,7 @@ export class CreateAppointmentComponent implements OnInit {
         }
       })
     } else {
-      this.appointmentForm.markAllAsTouched
+      this.appointmentForm.markAllAsTouched();
     }
   }
 
@@ -93,6 +93,26 @@ export class CreateAppointmentComponent implements OnInit {
 
   clear(): void {
     this.appointmentForm.reset();
+  }
+
+  cancel(): void {
+    if(this.appointmentForm.dirty) {
+      Swal.fire({
+        title: 'Se perderan los datos desea continuar?',
+        icon: 'question',
+        iconHtml: '?',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        showCloseButton: true
+      }).then((result) => {
+        if(result.isConfirmed) {
+          this.router.navigateByUrl('appointment/list');
+        }
+      })
+    } else {
+      this.router.navigateByUrl('appointment/list')
+    }
   }
 
   alertMessage(record: string, patientName: string): void {

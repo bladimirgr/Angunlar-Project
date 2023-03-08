@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientsService } from '../../core/services/patients/patients.service';
+import { MedicalRecordService } from '../../core/services/medical-record/medical-record.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -6,8 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  roles!: string | null;
+  
+  constructor(
+    private patientsService: PatientsService,
+    private medicalRecordService: MedicalRecordService
+  ) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+
+      this.roles = localStorage.getItem('x-user-role');
+      
+    }
 
 }

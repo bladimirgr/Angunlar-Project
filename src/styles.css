@@ -4,7 +4,7 @@ a {
     cursor: pointer
 }
 
-input.ng-valid.ng-touched{
+input.ng-valid.ng-touched {
     border: 2px solid #9dfab0;
 }
 
@@ -13,6 +13,10 @@ p-dropdown.ng-valid.ng-touched > .p-dropdown.p-component {
 }
 
 p-inputmask.ng-valid.ng-touched > .p-inputmask.p-component {
+    border: 2px solid #9dfab0;
+}
+
+p-calendar.ng-valid.ng-touched > .p-calendar.p-component {
     border: 2px solid #9dfab0;
 }
 
@@ -28,5 +32,9 @@ p-dropdown.ng-invalid.ng-touched > .p-dropdown.p-component {
 }
 
 p-inputmask.ng-invalid.ng-touched > .p-inputmask.p-component {
+    border: 2px solid #f8554c;
+}
+
+p-calendar.ng-valid.ng-touched > .p-calendar.p-component {
     border: 2px solid #f8554c;
 }

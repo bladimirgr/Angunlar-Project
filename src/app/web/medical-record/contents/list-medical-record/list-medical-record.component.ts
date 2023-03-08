@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked } from '@angular/core';
 import { MedicalRecordService } from 'src/app/core/services/medical-record/medical-record.service';
-import { MedicalRecordResponse } from '../../interfaces/medical-record.interfaces';
+import { PatientsService } from '../../../../core/services/patients/patients.service';
 
 @Component({
   selector: 'app-list-medical-record',
@@ -9,18 +9,15 @@ import { MedicalRecordResponse } from '../../interfaces/medical-record.interface
 })
 export class ListMedicalRecordComponent implements OnInit {
 
-  list: any [] = [];
+  medicalList: any [] = [];
 
   constructor(
-    private medicalRecordService: MedicalRecordService 
+    private medicalRecordService: MedicalRecordService
   ) {}
 
   ngOnInit() {
-
     this.medicalRecordService.GetList().subscribe((resp) => {
-      this.list = resp as unknown as [];
-
-      console.log('%c⧭', 'color: #733d00', this.list);
+      this.medicalList = resp as unknown as [];
     })
   }
 

@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
       this.authService.login(email, password)
       .subscribe((resp) => {
 
+        this.router.navigateByUrl('medical-record')
+
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',

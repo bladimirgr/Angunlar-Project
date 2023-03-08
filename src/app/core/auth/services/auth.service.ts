@@ -42,6 +42,7 @@ export class AuthService {
           localStorage.setItem('token', resp.data.jwToken)
           localStorage.setItem('x-user', resp.data.username)
           localStorage.setItem('x-user-role', resp.data.roles)
+          localStorage.setItem('x-userId', resp.data.id)
           localStorage.setItem('x-user-auth', resp.succeeded)
                 
         } else {
