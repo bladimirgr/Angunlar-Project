@@ -13,7 +13,10 @@ import { MedicalRecordService } from './core/services/medical-record/medical-rec
 import { OccupationService } from './core/services/occupation/occupation.service';
 import { SpecialtyService } from './core/services/specialty/specialty.service';
 import { ServicesService } from './core/services/services/services.service';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ChatService } from './core/services/chat/chat.service';
 
+const config: SocketIoConfig = { url: 'http://localhost:5001', options: {} };
 @NgModule({
   declarations: [
     AppComponent
@@ -23,9 +26,10 @@ import { ServicesService } from './core/services/services/services.service';
     CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    WebModule
+    WebModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [DoctorsService, PatientsService, UsersService, ProvincesService, MedicalRecordService, OccupationService, SpecialtyService, ServicesService ],
+  providers: [ChatService, DoctorsService, PatientsService, UsersService, ProvincesService, MedicalRecordService, OccupationService, SpecialtyService, ServicesService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

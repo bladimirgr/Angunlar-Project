@@ -39,6 +39,7 @@ export class AuthService {
         
         if( resp ) {
         
+          console.log('%c⧭', 'color: #007300', resp);
           localStorage.setItem('token', resp.data.jwToken)
           localStorage.setItem('x-user', resp.data.username)
           localStorage.setItem('x-user-role', resp.data.roles)

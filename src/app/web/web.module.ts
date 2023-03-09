@@ -6,12 +6,14 @@ import { UsersModule } from './users/users.module';
 import { DoctorModule } from './doctors/doctor.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { MedicalRecordModule } from './medical-record/medical-record.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
   ],
   imports: [
     CommonModule,
+    SharedModule,
     HttpClientModule,
     WebRoutingModule,
     UsersModule,
@@ -20,7 +22,7 @@ import { MedicalRecordModule } from './medical-record/medical-record.module';
     MedicalRecordModule
   ],
   exports: [
-   
+  
   ]
 })
 export class WebModule { }

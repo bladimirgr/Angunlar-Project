@@ -1,0 +1,19 @@
+<div class="container row col-12">
+
+    <div class="col-4">
+        <app-displayusers></app-displayusers>
+    </div>
+    
+    <div class="container col-8">
+        <div class="messageContainer gfg">
+            <p class="locale mt-2 ml-2" *ngFor="let message of chatService.chats">{{message}}</p>
+        </div>
+        <form (submit)="sendMessage(message)">
+            <textarea [(ngModel)]="message" [ngModelOptions]="{standalone:true}" pInputTextarea
+                class="form-control mt-2 mg-5" type="text" id="textarea" [autoResize]="true"></textarea>
+            <button pButton type="submit" class="mt-2 float-right p-button-success p-button-rounded">Enviar
+            </button>
+        </form>
+    </div>
+
+</div>

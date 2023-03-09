@@ -1,0 +1,10 @@
+:host ::ng-deep .listbox {
+    width: 200px;
+    height: 385px;
+}
+
+/* :host ::ng-deep .p-listbox-header {
+    color: white;
+    background-color: rgb(223, 244, 223);
+    font-weight: bold;
+} */

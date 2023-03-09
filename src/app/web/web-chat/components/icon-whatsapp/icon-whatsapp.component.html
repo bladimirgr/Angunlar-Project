@@ -1,3 +1,12 @@
-<app-modal-component></app-modal-component>
+<p-dialog [(visible)]="displayMaximizable" [style]="{width: '55vw'}" [resizable]="true" [modal]="true"
+    [maximizable]="true" (onHide)="hideModal()">
 
-<i class="pi pi-whatsapp icon" pBadge value="1" severity="success"></i>
+    <ng-template pTemplate="header">
+        <span></span>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <app-chat-room></app-chat-room>
+    </ng-template>
+</p-dialog>
+
+<i (click)="showModal()" class="pi pi-whatsapp icon" pBadge value="1" severity="success"></i>

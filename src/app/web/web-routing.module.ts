@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren:() => import ('../web/patients/patients.module').then(p => p.PatientsModule)
   },
   {
+    path:'chat',
+    loadChildren:() => import ('../web/web-chat/web-chat.module').then(w => w.WebChatModule)
+  },
+  {
     path: '**',
     redirectTo: 'dashboard'
   },
