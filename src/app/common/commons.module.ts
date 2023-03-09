@@ -8,6 +8,8 @@ import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommonsRoutingModule } from './commons-routing.module';
 import { CommonsPrimengModule } from './commons-primeng.module';
+import { WebChatModule } from '../web/web-chat/web-chat.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,10 @@ import { CommonsPrimengModule } from './commons-primeng.module';
   imports: [
     RouterModule,
     CommonModule,
+    SharedModule,
     CommonsRoutingModule,
-    CommonsPrimengModule
+    CommonsPrimengModule,
+    WebChatModule
   ],
   exports: [DashboardComponent, SidebarComponent, HeaderComponent, FooterComponent, MainContentComponent ],
   providers: [],

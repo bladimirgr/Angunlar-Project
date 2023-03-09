@@ -1,11 +1,11 @@
-<div class="navbar-nav bg-gradient-primary sidebar sidebar-dark">
+<div class="bg-gradient-dark sidebar sidebar-dark">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="pi pi-shield"></i>
+            <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Florence <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">App <sup>3</sup></div>
     </a>
 
     <!-- Divider -->
@@ -29,16 +29,16 @@
         Citas
      </div>
      <ul >
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'appointment/create'">
+                <span>Agendar Cita</span>
+            </a>
+        </li>
          <li class="nav-item" *ngIf="roles != 'Paciente'">
              <a class="nav-link" [routerLink]="'appointment/list'">
                  <span>Pacientes Citados</span>
              </a>
          </li>
-         <li class="nav-item">
-            <a class="nav-link" [routerLink]="'appointment/create'">
-                <span>Agendar Cita</span>
-            </a>
-        </li>
      </ul>
 
     <!-- Divider -->
@@ -46,17 +46,22 @@
 
     <!-- Heading Pacients -->
     <div *ngIf="roles != 'Paciente'" class="sidebar-heading">
-        Doctor o Pacientes
+        Doctor y Pacientes
     </div>
     <ul *ngIf="roles != 'Paciente'">
         <li class="nav-item">
             <a class="nav-link" [routerLink]="'commons'">
-                <span>Crear Doctor o Pacientes</span>
+                <span>Crear Usuarios</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" [routerLink]="'patients'">
                 <span>Lista de Pacientes</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'doctors'">
+                <span>Lista de Doctores</span>
             </a>
         </li>
     </ul>
@@ -71,7 +76,7 @@
      <ul>
          <li class="nav-item">
              <a class="nav-link" [routerLink]="'medical-record'">
-                 <span>Historia</span>
+                 <span>Historia Clinica</span>
              </a>
          </li>
      </ul>

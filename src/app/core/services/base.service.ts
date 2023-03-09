@@ -22,8 +22,8 @@ constructor(
   Patch(id: number, entity: TTypeRequest): Observable<TTypeResponse> {
     return this.http.patch<TTypeResponse>(`${this.url}/${id}`, entity)
   }
-  GetList(numPage?: number, numSize?: number): Observable<TType> {
-    return this.http.get<TType>(`${this.url}`)
+  GetList(numPage?: number, numSize?: number): Observable<TTypeResponse[]> {
+    return this.http.get<TTypeResponse[]>(`${this.url}`)
   }
   GetById(id: number): Observable<TTypeResponse> {
     return this.http.get<TTypeResponse>(`${this.url}/${id}`)

@@ -8,7 +8,7 @@ import { Provinces } from 'src/app/shared/models/provinces.interfaces';
 })
 export class ProvincesService {
 
-  url = 'http://localhost:3001/provinces';
+  url = 'http://localhost:3000/provinces';
 
   constructor(
     private httpClient: HttpClient
@@ -17,6 +17,5 @@ export class ProvincesService {
   GetList(): Observable<Provinces[]> {
     return this.httpClient.get<Provinces[]>(`${this.url}`)
   }
-
 
 }

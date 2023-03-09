@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '',
     component: MainContentComponent,
     loadChildren: () => import('./web/web.module').then( w => w.WebModule),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

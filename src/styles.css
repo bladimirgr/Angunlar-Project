@@ -4,6 +4,10 @@ a {
     cursor: pointer
 }
 
+li {
+   list-style: none;
+}
+
 input.ng-valid.ng-touched {
     border: 2px solid #9dfab0;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { PatientsService } from '../../../../core/services/patients/patients.service';
@@ -17,13 +17,13 @@ import { SpecialtyResponse } from '../../interfaces/specialty';
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.css']
 })
-export class CreateItemComponent implements OnInit, OnChanges {
+export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
 
   maritalStatus: any [] = [];
   occupations: OccupationResponse [] = [];
-  specialty: any [] = [];
+  specialty: SpecialtyResponse [] = [];
   roles: any [] = [];
-  label: string[] = ['Casa', 'Trabajo', 'Otra'];
+  title: string[] = ['Casa', 'Trabajo', 'Otra'];
   label2: string[] = ['Personal', 'Trabajo', 'Otra'];
   userId: string = '';
   insurances: any [] = [];
@@ -41,6 +41,13 @@ export class CreateItemComponent implements OnInit, OnChanges {
     private specialtyService: SpecialtyService,
     private router: Router
   ) { }
+
+  ngAfterViewInit(): void {
+    this.patientsService.GetList().subscribe((resp) => {
+      
+      console.log('%c⧭', 'color: #5200cc', resp.map((x) => x.record));
+    })
+  }
 
   userForm: FormGroup = this.formBuilder.group({
     username:  ['',[Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
@@ -88,10 +95,6 @@ export class CreateItemComponent implements OnInit, OnChanges {
       }
     ]
 
-    this.specialtyService.GetList().subscribe((specialty) => {
-      this.specialty = specialty as unknown as SpecialtyResponse [];
-    })
-
     this.maritalStatus = [
       {
         id: 1,
@@ -117,7 +120,7 @@ export class CreateItemComponent implements OnInit, OnChanges {
     this.insurances = [
       {
         id: 1,
-        name: "Senasa Susidiado"
+        name: "Senasa Subsidiado"
       },
       {
         id: 2,
@@ -129,13 +132,17 @@ export class CreateItemComponent implements OnInit, OnChanges {
       },
       {
         id: 4,
-        name: "Humanoo"
+        name: "Humano"
       },
       {
         id: 5,
         name: "Mapfre Salud"
       }
     ]
+
+    this.specialtyService.GetList().subscribe((specialty) => {
+      this.specialty = specialty as unknown as SpecialtyResponse [];
+    })
 
     this.occupationService.GetList().subscribe((occupation) => {
       this.occupations = occupation as unknown as OccupationResponse [];
@@ -174,8 +181,8 @@ export class CreateItemComponent implements OnInit, OnChanges {
       const addressForm = this.formBuilder.group({
         addressType: [1],
         street: [],
-        neighborhood: [],
-        city: []
+        township: [],
+        province: []
       });
       this.addresses.push(addressForm);
   }
@@ -233,7 +240,7 @@ export class CreateItemComponent implements OnInit, OnChanges {
 
         } else if(!resp.succeeded) {
           Swal.fire({
-            title: 'Error en al crear',
+            title: 'Error al crear usuario',
             icon: 'error',
             iconHtml: 'X',
             confirmButtonText: 'Si',
@@ -252,19 +259,20 @@ export class CreateItemComponent implements OnInit, OnChanges {
   }
 
   onChanges(country: any): void {
+
     if(country) {
       this.provincesService.GetList().subscribe((resp: Provinces[]) => {
   
         this.provinces = resp;
-  
-        this.township = resp.map((x) => x.municipalities)
-        
+
       })
     }
   }    
 
-  ngOnChanges(): void {
+  ngOnChanges(event: any): void {
 
+
+    console.log('%c⧭', 'color: #aa00ff',event );
   }
 
   clear(): void {

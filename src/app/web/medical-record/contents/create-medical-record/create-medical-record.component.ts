@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppointmentService } from 'src/app/core/services/appointment/appointment.service';
 import { MedicalRecordService } from 'src/app/core/services/medical-record/medical-record.service';
 import { PatientsService } from 'src/app/core/services/patients/patients.service';
@@ -15,14 +15,15 @@ import { SymptomsResponse } from '../../interfaces/symptoms.interfaces';
 export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
 
   @Input() id!: number;
-  patientName!: string
   @Input() service!: any
+  patientName!: string
   symptoms!: SymptomsResponse []
   selectedSymptoms: string [] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private medicalRecordService: MedicalRecordService,
     private patientsService: PatientsService,
     private appointmentService: AppointmentService
@@ -170,6 +171,30 @@ export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
           })
         }
       })
+    }
+  }
+
+  clear(): void {
+    // this.visitForm.reset();
+  }
+
+  cancel(): void {
+    if(this.visitForm.dirty) {
+      Swal.fire({
+        title: 'Se perderan los datos desea continuar?',
+        icon: 'question',
+        iconHtml: '?',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        showCloseButton: true
+      }).then((result) => {
+        if(result.isConfirmed) {
+          this.router.navigateByUrl('appointment/list');
+        }
+      })
+    } else {
+      this.router.navigateByUrl('appointment/list')
     }
   }
 

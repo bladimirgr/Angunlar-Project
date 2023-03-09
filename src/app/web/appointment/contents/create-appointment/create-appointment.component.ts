@@ -6,6 +6,8 @@ import { DoctorResponse } from 'src/app/web/doctors/interfaces/doctor.intefaces'
 import { PatientsService } from '../../../../core/services/patients/patients.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ServicesService } from '../../../../core/services/services/services.service';
+import { ServicesResponse } from '../../../common/interfaces/services.interfaces';
 
 @Component({
   selector: 'app-create-appointment',
@@ -15,7 +17,7 @@ import { Router } from '@angular/router';
 export class CreateAppointmentComponent implements OnInit {
 
   doctors: DoctorResponse [] = [];
-  services: any [] = [];
+  services: ServicesResponse [] = [];
   name!: string;
   patientId!: number;
   currentDate: any;
@@ -26,6 +28,7 @@ export class CreateAppointmentComponent implements OnInit {
     private doctorsService: DoctorsService,
     private appointmentService: AppointmentService,
     private patientsService: PatientsService,
+    private servicesService: ServicesService,
     private router: Router
   ) { }
 
@@ -48,16 +51,32 @@ export class CreateAppointmentComponent implements OnInit {
 
     this.currentDate = new Date().toISOString().slice(0, 10);
 
-    this.services = [
-      {
-        "id": 1,
-        "name": "Consulta Anestesia"
-       },
-       {
-        "id": 2,
-        "name": "Consulta Cardiologia"
-       }
-    ]
+    // this.services = [
+    //   {
+    //     "id": 1,
+    //     "name": "Consulta Anestesia"
+    //    },
+    //    {
+    //     "id": 2,
+    //     "name": "Consulta Cardiologia"
+    //    },
+    //    {
+    //     "id": 3,
+    //     "name": "Consulta Endocrino"
+    //    },
+    //    {
+    //     "id": 4,
+    //     "name": "Consulta Psicologia"
+    //    },
+    //    {
+    //     "id": 5,
+    //     "name": "Consulta Audiometria"
+    //    }
+    // ]
+
+    this.servicesService.GetList().subscribe((service) => {
+      this.services = service as unknown as ServicesResponse [];
+    })
 
     this.doctorsService.GetList().subscribe((resp: DoctorResponse []) => {
       this.doctors = resp;

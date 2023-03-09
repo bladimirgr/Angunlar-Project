@@ -12,6 +12,7 @@ import { ProvincesService } from './core/services/provinces/province.service';
 import { MedicalRecordService } from './core/services/medical-record/medical-record.service';
 import { OccupationService } from './core/services/occupation/occupation.service';
 import { SpecialtyService } from './core/services/specialty/specialty.service';
+import { ServicesService } from './core/services/services/services.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { SpecialtyService } from './core/services/specialty/specialty.service';
     AppRoutingModule,
     WebModule
   ],
-  providers: [DoctorsService, PatientsService, UsersService, ProvincesService, MedicalRecordService, OccupationService, SpecialtyService ],
+  providers: [DoctorsService, PatientsService, UsersService, ProvincesService, MedicalRecordService, OccupationService, SpecialtyService, ServicesService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

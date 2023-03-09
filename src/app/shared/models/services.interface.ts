@@ -4,7 +4,7 @@ export interface IBaseService<TType, TTypeResponse, TTypeRequest> {
 
   url: string
 
-  GetList(numPage?: number, numSize?: number): Observable<TType>;
+  GetList(numPage?: number, numSize?: number): Observable<TTypeResponse[]>;
   GetListPaged(numPage: number, numSize: number): Observable<TType>;
   GetById(id: number): Observable<TTypeResponse>;
   Delete(id: number): Observable<TTypeRequest>;
