@@ -20,7 +20,7 @@ export interface UsersResponse {
 }
 
 export interface UsersDataResponse {
-    data:        UsersResponse;
+    data:        UsersResponse [];
 }
 
 

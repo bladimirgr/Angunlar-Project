@@ -7,7 +7,7 @@ import { CreateMedicalRecordComponent } from './contents/create-medical-record/c
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: ListMedicalRecordComponent
   },
   {

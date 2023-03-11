@@ -33,6 +33,6 @@ export interface MedicalRecordResponse {
 }
 
 export interface MedicalRecordDataResponse {
-    data:       MedicalRecordResponse;
+    data:       MedicalRecordResponse [];
 }
 

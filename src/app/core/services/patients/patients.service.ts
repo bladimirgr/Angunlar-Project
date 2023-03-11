@@ -10,7 +10,7 @@ export class PatientsService extends BaseService<PatientsDataResponse,PatientsRe
     override url = 'http://localhost:3000/patients'
 
     constructor(
-       private httpClient: HttpClient
+        private httpClient: HttpClient
     ) {
         super(httpClient);
     }

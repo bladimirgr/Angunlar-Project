@@ -15,6 +15,10 @@ export class UsersService {
         return this.httpClient.post<any>(this.url, entity)
     }
 
+    GetById(id: string | null): Observable<any> {
+        return this.httpClient.get<any>(`${this.url}/${id}`)
+    }
+
     Delete(id: string): Observable<any> {
         return this.httpClient.delete<any>(`${this.url}/${id}`)
     }

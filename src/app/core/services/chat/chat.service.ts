@@ -1,31 +1,67 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  chats: string [] = []
+
+  selectedUser: any;
+  usersList: any [] = [];
+  chats: any [] = [];
+  count!: string;
+  usernameAlreadySelected : boolean = false;
+  users!: any [];
 
   constructor(
     private socket: Socket
   ) {
     this.onReceiveMessage();
+    this.onUser();
+    this.usersOnline();
+    this.existUsers();
   }
 
-  conexion(): void {
-    this.socket.connect()
+  usersOnline(): any {
+    this.socket.on("users", (users: any[]) => {
+      users.forEach((user) => {
+        this.users = users.sort((a, b) => {
+          if (a.self) return -1;
+          if (b.self) return 1;
+          if (a.username < b.username) return -1;
+          return a.username > b.username ? 1 : 0;
+        })        
+      })
+    });
   }
 
-  sendMessage(message: string): void {
-    this.chats.push(message)
-    this.socket.emit("sendMessage",  message)  
+  existUsers(): any {
+    this.socket.on("userConnected", (user: any) => {
+      return this.users.push(user);
+    });
   }
 
-  onReceiveMessage(): void {
-    this.socket.on("receiveMessage", (messages: string) => {
-      // this.chats.push(messages)
+  onUser(): any {
+    this.usernameAlreadySelected = true;
+    this.socket.ioSocket['auth'] = { username: localStorage.getItem('x-user')};
+    this.socket.connect();
+  }
+
+  sendMessage(message: any): any {
+    const messageInfo = {
+      text: message,
+      date: new Date(),
+      username:  localStorage.getItem('x-user')
+    }
+    this.chats.push(messageInfo)
+    this.socket.emit("sendMessage",  messageInfo)
+  }
+
+  onReceiveMessage(): any {
+    this.socket.on("receiveMessage", (messages: any) => { 
+      this.chats.push(messages);
     })
   }
 

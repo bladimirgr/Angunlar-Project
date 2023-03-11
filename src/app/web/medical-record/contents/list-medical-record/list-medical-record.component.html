@@ -44,13 +44,7 @@
                             </th>
                             <th style="min-width:8rem">
                               <div class="flex justify-content-center align-items-center">
-                                Sintomas
-                                <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
-                              </div>
-                            </th>
-                            <th style="min-width:8rem">
-                              <div class="flex justify-content-center align-items-center">
-                                Diagnostico
+                                Fecha
                                 <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
                               </div>
                             </th>
@@ -64,8 +58,7 @@
                           <td>{{medicalList.patientName}}</td>
                           <td>{{medicalList.service}}</td>
                           <td>{{medicalList.reason}}</td>
-                          <td>{{medicalList.symptoms[1]}}</td>
-                          <td>{{medicalList.dignostics}}</td>
+                          <td>{{medicalList.createdAt | date}}</td>
                           <td *ngIf="medicalList.status === 'Realizada'">
                             <a routerLink="/medical-record/info/info/{{medicalList.id}}" title="Ver Reporte Completo"><i class="pi pi-file "></i></a>                           
                           </td>

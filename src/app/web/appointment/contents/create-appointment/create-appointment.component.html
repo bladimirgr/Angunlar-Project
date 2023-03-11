@@ -21,16 +21,15 @@
 
                     <div class="form-group">
                       <label for="service">Record</label>
-                      <input class="form-control col-3" formControlName="record" title="record"
+                      <input [readOnly]="isReadOnly" class="form-control col-3" formControlName="record" title="record"
                       (input)="search($event)">
                       <app-error-messages [control]="this.appointmentForm.controls['record']"></app-error-messages>
                     </div>
-                    <button pButton type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Buscar"></button>
-                    <br><br>
+                    <!-- <button pButton type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Buscar"></button> -->
                     <div class="form-group">
                       <label for="service">Nombres</label>
                       <br>
-                      <input [(ngModel)]="name" formControlName="patientName" class="form-control col-6" type="text"
+                      <input [readOnly]="isReadOnly" [(ngModel)]="name" formControlName="patientName" class="form-control col-6" type="text"
                         title="patientName">
                         <app-error-messages [control]="this.appointmentForm.controls['patientName']"></app-error-messages>
                     </div>

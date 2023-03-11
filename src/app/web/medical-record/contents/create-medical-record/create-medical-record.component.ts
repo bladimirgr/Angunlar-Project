@@ -42,10 +42,6 @@ export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // this.route.params.subscribe((resp) => { 
-    //   console.log('%c⧭', 'color: #ff6600', resp['id']);
-    // })
-
     this.symptoms = [
       {
         id: 1,
@@ -140,7 +136,6 @@ export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
         name: "Presión o retorcijones en la ingle"
       }
     ]
-
   }
 
   visitForm: FormGroup = this.formBuilder.group({
@@ -153,7 +148,7 @@ export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
     service:        ['', Validators.required],
     status:         ['Realizada', Validators.required],
     isActive:       [true],
-    createdAt:      [],
+    createdAt:      [new Date()],
     updatedAt:      [],
     createdBy:      [],
     updatedBy:      [],
@@ -207,7 +202,6 @@ export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
       showConfirmButton: false,
       timer: 1500
     })
-
   }
 
 }

@@ -17,4 +17,8 @@ export class MedicalRecordService extends BaseService<MedicalRecordDataResponse,
         return this.httpClient.get<MedicalRecordResponse>(`${this.url}/?patientId/${id}`)
     }
 
+    GetByListByPatient(id: number): Observable<MedicalRecordResponse[]> {
+        return this.httpClient.get<MedicalRecordResponse[]>(`${this.url}/?patientId=${id}`)
+    }
+
 }

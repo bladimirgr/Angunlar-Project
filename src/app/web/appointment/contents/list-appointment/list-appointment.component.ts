@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AppointmentService } from '../../../../core/services/appointment/appointment.service';
 import { AppointmentResponse } from '../../interfaces/appointment.interfaces';
+import { PatientsService } from '../../../../core/services/patients/patients.service';
 
 @Component({
   selector: 'app-list-appointment',
@@ -16,15 +17,30 @@ export class ListAppointmentComponent implements OnInit, OnDestroy {
   appointmentList$: Subscription = new Subscription();
 
   constructor(
+    private patientsService: PatientsService,
     private appointmentService: AppointmentService
   ) { }
 
   ngOnInit() {
-
-    this.appointmentList$ = this.appointmentService.GetList().subscribe((resp) => {
-      this.appointmentList = resp as unknown as AppointmentResponse[];
-    })
+    this.getList()
     
+  }
+
+  getList(): void {
+    if(localStorage.getItem('x-user-role') === 'Paciente'){
+      let userId = localStorage.getItem('x-userId')
+      this.patientsService.GetPatientId(userId).subscribe((resp) => {
+
+        this.appointmentService.GetByPatientId(resp[0].id).subscribe((x) => {
+          
+          this.appointmentList = x;
+        }) 
+      })
+    } else {
+      this.appointmentList$ = this.appointmentService.GetList().subscribe((resp) => {
+        this.appointmentList = resp as unknown as AppointmentResponse[];
+      })
+    }
   }
 
   delete(id: number): void {

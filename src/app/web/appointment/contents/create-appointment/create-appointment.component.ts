@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ServicesService } from '../../../../core/services/services/services.service';
 import { ServicesResponse } from '../../../common/interfaces/services.interfaces';
+import { UsersService } from 'src/app/core/services/users/users.service';
 
 @Component({
   selector: 'app-create-appointment',
@@ -19,9 +20,11 @@ export class CreateAppointmentComponent implements OnInit {
   doctors: DoctorResponse [] = [];
   services: ServicesResponse [] = [];
   name!: string;
+  record!: number;
   patientId!: number;
   currentDate: any;
   display: boolean = false;
+  isReadOnly: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +36,7 @@ export class CreateAppointmentComponent implements OnInit {
   ) { }
 
   appointmentForm: FormGroup = this.formBuilder.group({
-    record:      ['',Validators.required],
+    record:      [localStorage.getItem(""),Validators.required],
     service:     ['',Validators.required],
     patientId:   [],
     patientName: ['',Validators.required],
@@ -48,31 +51,9 @@ export class CreateAppointmentComponent implements OnInit {
   })
 
   ngOnInit() {
+    this.getPatient();
 
     this.currentDate = new Date().toISOString().slice(0, 10);
-
-    // this.services = [
-    //   {
-    //     "id": 1,
-    //     "name": "Consulta Anestesia"
-    //    },
-    //    {
-    //     "id": 2,
-    //     "name": "Consulta Cardiologia"
-    //    },
-    //    {
-    //     "id": 3,
-    //     "name": "Consulta Endocrino"
-    //    },
-    //    {
-    //     "id": 4,
-    //     "name": "Consulta Psicologia"
-    //    },
-    //    {
-    //     "id": 5,
-    //     "name": "Consulta Audiometria"
-    //    }
-    // ]
 
     this.servicesService.GetList().subscribe((service) => {
       this.services = service as unknown as ServicesResponse [];
@@ -86,11 +67,25 @@ export class CreateAppointmentComponent implements OnInit {
 
   search(event: any) {
     this.patientsService.GetPatient(event.target.value).subscribe((resp) => {
-      var firstName = resp[0]?.firstName
-      var lastName = resp[0]?.lastName
-      this.name = firstName + ' ' + lastName
+      var firstName = resp[0]?.firstName;
+      var lastName = resp[0]?.lastName;
+      this.name = firstName + ' ' + lastName;
       this.appointmentForm.controls["patientId"].patchValue(resp[0]?.id);
     })
+  }
+
+  getPatient() {
+    if(localStorage.getItem('x-user-role') === 'Paciente'){
+      let userId = localStorage.getItem('x-userId')
+      this.patientsService.GetPatientId(userId).subscribe((resp) => {
+        var firstName = resp[0]?.firstName;
+        var lastName = resp[0]?.lastName;
+        this.name = firstName + ' ' + lastName;
+        this.appointmentForm.controls["record"].patchValue(resp[0]?.record);
+        this.appointmentForm.controls["patientId"].patchValue(resp[0]?.id);
+        this.isReadOnly = true;
+      })
+    }
   }
 
   create(): void {

@@ -13,8 +13,8 @@ import { DoctorsService } from '../../../services/doctor/doctors.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup = this.formBuilder.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['bladimirgr15@gmail.com', Validators.required],
+    password: ['Eldom181993+', Validators.required],
   });
 
   constructor(

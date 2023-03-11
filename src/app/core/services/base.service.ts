@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class BaseService<TType, TTypeResponse, TTypeRequest> implements IBaseService<TType, TTypeResponse, TTypeRequest>{
 
 constructor(
- private http: HttpClient) { }
+  private http: HttpClient) { }
 
   url!: string;
 

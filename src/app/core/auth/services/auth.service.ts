@@ -4,6 +4,7 @@ import { AuthResponse } from '../interfaces/auth.interface';
 import { map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { ChatService } from '../../services/chat/chat.service';
 
 export enum Role {
   Admin = 'Admin',
@@ -17,6 +18,7 @@ export enum Role {
 
 export class AuthService {
 
+  token: any;
   userName!: string
   userRoles!: string
   isUserAuthenticated!: boolean
@@ -38,13 +40,11 @@ export class AuthService {
       tap((resp: any) => {
         
         if( resp ) {
-        
-          console.log('%c⧭', 'color: #007300', resp);
-          localStorage.setItem('token', resp.data.jwToken)
-          localStorage.setItem('x-user', resp.data.username)
-          localStorage.setItem('x-user-role', resp.data.roles)
-          localStorage.setItem('x-userId', resp.data.id)
-          localStorage.setItem('x-user-auth', resp.succeeded)
+          localStorage.setItem('token', resp.data.jwToken);
+          localStorage.setItem('x-user', resp.data.username);
+          localStorage.setItem('x-user-role', resp.data.roles);
+          localStorage.setItem('x-userId', resp.data.id);
+          localStorage.setItem('x-user-auth', resp.succeeded);
                 
         } else {
 

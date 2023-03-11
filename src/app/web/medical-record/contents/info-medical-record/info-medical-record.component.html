@@ -3,66 +3,57 @@
     <div class="col-xl-10 col-lg-12 col-md-12">
       <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
-    
-            <div class="col-lg-12">
-              <div class="p-5">
 
-                <div class="row">
+          <div class="col-lg-12">
+            <div class="p-5">
 
-                  <div class="col-6">
-                    <figure>
+              <div class="row">
+
+                <div class="col-6">
+                  <figure>
                     <figcaption class="blockquote">
                       <cite>
                         <span>Record:</span> {{patient.record}}
                       </cite>
                     </figcaption>
 
-                      <figcaption class="blockquote">
-                        <cite>
-                          <span>Nombres:</span> {{patient.firstName}} {{patient.lastName}}
-                        </cite>
-                      </figcaption>
-              
-                      <figcaption class="blockquote-footer">
-                        <cite>
-                          Seguro Médico: {{patient.insurance}}
-                        </cite>
-                      </figcaption>
-
-
-                      <figcaption class="blockquote">
-                        <cite>
-                        <span>Estado Civil:</span> {{patient.maritalStatus}}
-                        </cite>
-                        
-                      </figcaption>
-                    </figure>
-  
-                  </div>
-
-                  <div class="col-4">
                     <figcaption class="blockquote">
                       <cite>
-                        Fecha Nacimiento: {{patient.birthday}}
+                        <span>Nombres:</span> {{patient.firstName}} {{patient.lastName}}
                       </cite>
-                      
                     </figcaption>
-                   
-                  </div>
-                 
 
+                    <figcaption class="blockquote-footer">
+                      <cite>
+                        Seguro Médico: {{patient.insurance}}
+                      </cite>
+                    </figcaption>
+
+                    <figcaption class="blockquote">
+                      <cite>
+                        <span>Estado Civil:</span> {{patient.maritalStatus}}
+                      </cite>
+                    </figcaption>
+                  </figure>
                 </div>
-                
+
+                <div class="col-4">
+                  <figcaption class="blockquote">
+                    <cite>
+                      Fecha Nacimiento: {{patient.birthday}}
+                    </cite>
+                  </figcaption>
+                </div>
+
               </div>
             </div>
-            
+          </div>
         </div>
-        
       </div>
 
       <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-5">
-          
+
           <div class="row">
 
             <div class="col-6">
@@ -73,30 +64,29 @@
                   </cite>
                 </figcaption>
                 <figcaption class="blockquote">
-                  <span>Fecha:</span> 
+                  <span>Fecha:</span>
                   <cite>
                     {{history.createdAt}}
                   </cite>
                 </figcaption>
-    
-                  <figcaption class="blockquote">
-                    <cite>
-                      <span>Motivo:</span>  
-                    </cite>
-                    <blockquote>
-                      {{history.reason}}
-                    </blockquote>
-                  </figcaption>
-          
-                  <figcaption class="blockquote">
-                    <cite>
-                      Descripción de la Consulta:
-                    </cite>
-                    <blockquote>
-                      {{history.description}}
-                    </blockquote>
-                  </figcaption>
-    
+
+                <figcaption class="blockquote">
+                  <cite>
+                    <span>Motivo:</span>
+                  </cite>
+                  <blockquote>
+                    {{history.reason}}
+                  </blockquote>
+                </figcaption>
+
+                <figcaption class="blockquote">
+                  <cite>
+                    Descripción de la Consulta:
+                  </cite>
+                  <blockquote>
+                    {{history.description}}
+                  </blockquote>
+                </figcaption>
               </figure>
             </div>
 
@@ -107,35 +97,31 @@
                 </cite>
               </figcaption>
 
-            <figcaption class="blockquote">
-              <cite>
-                Sintomas de la Consulta:
-              </cite>
-              <blockquote>
-                <ul>
-                  <li >{{history.symptoms[0]}}</li>
-                  <li>{{history.symptoms[1]}}</li>
-                  <li>{{history.symptoms[2]}}</li>
-                </ul>
-              </blockquote>
-            </figcaption>
+              <figcaption class="blockquote">
+                <cite>
+                  Sintomas de la Consulta:
+                </cite>
+                <blockquote>
+                  <ul>
+                    <li>{{history.symptoms[0]}}</li>
+                    <li>{{history.symptoms[1]}}</li>
+                    <li>{{history.symptoms[2]}}</li>
+                  </ul>
+                </blockquote>
+              </figcaption>
 
-            <figcaption class="blockquote">
-              <cite>
-                Diagnostico:
-              </cite>
-              <blockquote>
-                {{history.dignostics}}
-              </blockquote>
-            </figcaption>
+              <figcaption class="blockquote">
+                <cite>
+                  Diagnostico:
+                </cite>
+                <blockquote>
+                  {{history.dignostics}}
+                </blockquote>
+              </figcaption>
             </div>
-
           </div>
-         
         </div>
-        
       </div>
     </div>
   </div>
 </div>
-

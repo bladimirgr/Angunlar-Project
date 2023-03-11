@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-displayusers',
@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayusersComponent implements OnInit {
 
-  users: any [] = [];
+  @Input() users: any [] = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
- 
+
+    console.log('%c⧭', 'color: #364cd9', this.users);
   }
 
 }

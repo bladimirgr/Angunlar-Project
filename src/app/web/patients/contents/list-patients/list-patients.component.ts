@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/core/services/users/users.service';
-import Swal from 'sweetalert2';
 import { PatientsService } from '../../../../core/services/patients/patients.service';
+import Swal from 'sweetalert2';
+import { UsersService } from 'src/app/core/services/users/users.service';
 
 @Component({
   selector: 'app-list-patients',

@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">App <sup>3</sup></div>
+        <div class="sidebar-brand-text mx-3">App <sup>Admin</sup></div>
     </a>
 
     <!-- Divider -->
@@ -21,25 +21,26 @@
         </li>
     </ul>
 
-     <!-- Divider -->
-     <hr class="sidebar-divider">
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-     <!-- Heading Pacients -->
-     <div class="sidebar-heading">
+    <!-- Heading Pacients -->
+    <div class="sidebar-heading">
         Citas
-     </div>
-     <ul >
+    </div>
+    <ul>
         <li class="nav-item">
             <a class="nav-link" [routerLink]="'appointment/create'">
                 <span>Agendar Cita</span>
             </a>
         </li>
-         <li class="nav-item" *ngIf="roles != 'Paciente'">
-             <a class="nav-link" [routerLink]="'appointment/list'">
-                 <span>Pacientes Citados</span>
-             </a>
-         </li>
-     </ul>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'appointment/list'">
+                <span *ngIf="roles != 'Paciente'">Pacientes Citados</span>
+                <span *ngIf="roles != 'Doctor'">Lista de Citas</span>
+            </a>
+        </li>
+    </ul>
 
     <!-- Divider -->
     <hr *ngIf="roles != 'Paciente'" class="sidebar-divider">
@@ -66,19 +67,19 @@
         </li>
     </ul>
 
-     <!-- Divider -->
-     <hr class="sidebar-divider">
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-     <!-- Heading Pacients -->
-     <div class="sidebar-heading">
+    <!-- Heading Pacients -->
+    <div class="sidebar-heading">
         Historial Médico
-     </div>
-     <ul>
-         <li class="nav-item">
-             <a class="nav-link" [routerLink]="'medical-record'">
-                 <span>Historia Clinica</span>
-             </a>
-         </li>
-     </ul>
-    
+    </div>
+    <ul>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'medical-record/list'">
+                <span>Historia Clinica</span>
+            </a>
+        </li>
+    </ul>
+
 </div>

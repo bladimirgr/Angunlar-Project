@@ -1,12 +1,17 @@
 <div class="container row col-12">
 
     <div class="col-4">
-        <app-displayusers></app-displayusers>
+        En Linea <p-badge class="mb-4" [value]="count" size="large" severity="success"></p-badge>
+        <hr>
+        <p-listbox [(ngModel)]="selectedUser" emptyMessage="No hay usuarios en linea." styleClass="listbox" [filter]="true" [options]="users" optionLabel="username"></p-listbox>
     </div>
-    
+
     <div class="container col-8">
         <div class="messageContainer gfg">
-            <p class="locale mt-2 ml-2" *ngFor="let message of chatService.chats">{{message}}</p>
+            <div class="locale mt-2 ml-2" *ngFor="let message of chats">
+                {{message.text}}
+                <p class="pt-4 float-right">{{message.date | date:"shortTime"}}</p>
+            </div>
         </div>
         <form (submit)="sendMessage(message)">
             <textarea [(ngModel)]="message" [ngModelOptions]="{standalone:true}" pInputTextarea
