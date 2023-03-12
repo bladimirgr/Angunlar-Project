@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { SharedPrimengModule } from './shared.primeng.module';
 import { ErrorMessagesComponent } from './components/error-messages/error-messages.component';
 import { ModalComponent } from './components/modal-component/modal.component';
+import { ProgressSpinnerComponent } from './components/progressSpinner/progressSpinner.component';
 
 @NgModule({
   declarations: [
     ErrorMessagesComponent,
-    ModalComponent
+    ModalComponent,
+    ProgressSpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { ModalComponent } from './components/modal-component/modal.component';
   ],
   exports: [
     ErrorMessagesComponent,
-    ModalComponent
+    ModalComponent,
+    ProgressSpinnerComponent
   ]
 })
 export class SharedModule { }

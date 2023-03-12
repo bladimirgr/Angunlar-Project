@@ -1,35 +1,36 @@
-import { Component, OnInit, OnChanges, AfterViewInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { PatientsService } from '../../../../core/services/patients/patients.service';
 import { DoctorsService } from '../../../../core/services/doctor/doctors.service';
 import { ProvincesService } from '../../../../core/services/provinces/province.service';
-import { Provinces, Countries, Municipalities } from '../../../../shared/models/provinces.interfaces';
+import { Provinces, Countries } from '../../../../shared/models/provinces.interfaces';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { OccupationResponse } from '../../interfaces/occupations';
+import { OccupationResponse } from '../../interfaces/occupations.interfaces';
 import { OccupationService } from '../../../../core/services/occupation/occupation.service';
 import { SpecialtyService } from 'src/app/core/services/specialty/specialty.service';
-import { SpecialtyResponse } from '../../interfaces/specialty';
+import { SpecialtyResponse } from '../../interfaces/specialty.interfaces';
 
 @Component({
   selector: 'app-create-item',
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.css']
 })
-export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
+export class CreateItemComponent implements OnInit, AfterViewInit {
 
-  maritalStatus: any [] = [];
-  occupations: OccupationResponse [] = [];
-  specialty: SpecialtyResponse [] = [];
-  roles: any [] = [];
+  maritalStatus: any[] = [];
+  occupations: OccupationResponse[] = [];
+  specialty: SpecialtyResponse[] = [];
+  roles: any[] = [];
   title: string[] = ['Casa', 'Trabajo', 'Otra'];
   label2: string[] = ['Personal', 'Trabajo', 'Otra'];
   userId: string = '';
-  insurances: any [] = [];
-  countries: Countries [] = [];
-  provinces: Provinces [] = [];
-  township: any [] = [];
+  insurances: any[] = [];
+  countries: Countries[] = [];
+  provinces: Provinces[] = [];
+  townshipList: any[] = [];
+  selectProvince: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,38 +44,36 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void {
-    this.patientsService.GetList().subscribe((resp) => {
-      
-      console.log('%c⧭', 'color: #5200cc', resp.map((x) => x.record));
-    })
+    this.generateRecord();
   }
 
   userForm: FormGroup = this.formBuilder.group({
-    username:  ['',[Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
-    email:     ['',Validators.required],
-    password:  ['',Validators.required],
-    isActive:  [true],
-    roles:     ['',Validators.required]
+    username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+    isActive: [true],
+    roles: ['', Validators.required]
   })
 
   commonForm: FormGroup = this.formBuilder.group({
-    userId:         [this.userId],
-    record:         [],
-    occupationId:   [''],
-    firstName:      ['',[Validators.required,Validators.minLength(3)]],
-    lastName:       ['',[Validators.required,Validators.minLength(3)]],
-    insurance:      [''],
-    sex:            [''],
-    maritalStatus:  [''],
-    birthday:       [''],
-    nationalityId:  [''],
-    specialtyId:    [''],
-    status:         [''],
-    isActive:       [true],
-    createdAt:      [new Date()],
-    updatedAt:      [''],
-    createdBy:      [localStorage.getItem('x-user')],
-    updatedBy:      [''],
+    userId: [this.userId],
+    record: [],
+    img: [],
+    occupationId: [''],
+    firstName: ['', [Validators.required, Validators.minLength(3)]],
+    lastName: ['', [Validators.required, Validators.minLength(3)]],
+    insurance: [''],
+    sex: [''],
+    maritalStatus: [''],
+    birthday: [''],
+    nationalityId: [''],
+    specialtyId: [''],
+    status: [''],
+    isActive: [true],
+    createdAt: [new Date()],
+    updatedAt: [''],
+    createdBy: [localStorage.getItem('x-user')],
+    updatedBy: [''],
     documents: this.formBuilder.array([]),
     phones: this.formBuilder.array([]),
     addresses: this.formBuilder.array([]),
@@ -141,11 +140,11 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
     ]
 
     this.specialtyService.GetList().subscribe((specialty) => {
-      this.specialty = specialty as unknown as SpecialtyResponse [];
+      this.specialty = specialty as unknown as SpecialtyResponse[];
     })
 
     this.occupationService.GetList().subscribe((occupation) => {
-      this.occupations = occupation as unknown as OccupationResponse [];
+      this.occupations = occupation as unknown as OccupationResponse[];
     })
 
   }
@@ -167,7 +166,7 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   addDocuments(): void {
-    let documents = [1,2]
+    let documents = [1, 2]
     for (let i = 0; i < documents.length; i++) {
       const documentForm = this.formBuilder.group({
         documentType: [documents[i]],
@@ -175,52 +174,63 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
       });
       this.document.push(documentForm);
     }
-  } 
+  }
 
   addAddresses(): void {
-      const addressForm = this.formBuilder.group({
-        addressType: [1],
-        street: [],
-        township: [],
-        province: []
-      });
-      this.addresses.push(addressForm);
+    const addressForm = this.formBuilder.group({
+      addressType: [1],
+      street: [],
+      township: [],
+      province: []
+    });
+    this.addresses.push(addressForm);
   }
-  
+
   addPhones(): void {
-    let phones = [1,2,3]
+    let phones = [1, 2, 3]
     for (let i = 0; i < phones.length; i++) {
       const phonesForm = this.formBuilder.group({
         phoneType: [phones[i]],
-        number:    [],
+        number: [],
         extension: []
       });
       this.phones.push(phonesForm);
     }
-  
+
   }
 
-  addEmail():void {
-    let emails = [1,2]
+  addEmail(): void {
+    let emails = [1, 2]
     for (let i = 0; i < emails.length; i++) {
       const emailForm = this.formBuilder.group({
         emailType: [emails[i]],
-        email:     []
+        email: []
       });
       this.emails.push(emailForm);
     }
-  
+
+  }
+
+  generateRecord() {
+    this.patientsService.GetList().subscribe((resp) => {
+      const arr = resp.map((x) => x.record);
+      const last = arr.slice(-1);
+      const newRecord = last[0] + 1
+      this.commonForm.controls['record'].patchValue(newRecord);
+    })
   }
 
   Create(): void {
-    if(this.userForm.valid) {
+
+    console.log('%c⧭', 'color: #00ff88', this.commonForm.value);
+    if (this.userForm.valid) {
       //Si el formulario de Usuario es valido, lo crea.
       this.usersService.Create(this.userForm.value).subscribe((resp) => {
-        
-        if(resp.succeeded) {
+
+        if (resp.succeeded) {
 
           // Si el usuario es creado valida el Rol, Si los datos son validos lo crea
-          if(this.commonForm.valid && resp.roles === "Doctor") {
+          if (this.commonForm.valid && resp.roles === "Doctor") {
 
             this.commonForm.value.userId = resp.data.id;
 
@@ -229,16 +239,16 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
 
             })
 
-          } else if (this.commonForm.valid && resp.data.roles === "Paciente"){
+          } else if (this.commonForm.valid && resp.data.roles === "Paciente") {
 
             this.commonForm.value.userId = resp.data.id;
-            
+
             this.patientsService.Create(this.commonForm.value).subscribe((patient) => {
               this.alertMessage();
             })
           }
 
-        } else if(!resp.succeeded) {
+        } else if (!resp.succeeded) {
           Swal.fire({
             title: 'Error al crear usuario',
             icon: 'error',
@@ -259,20 +269,17 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   onChanges(country: any): void {
-
-    if(country) {
+    if (country) {
       this.provincesService.GetList().subscribe((resp: Provinces[]) => {
-  
         this.provinces = resp;
-
       })
     }
-  }    
+  }
 
-  ngOnChanges(event: any): void {
+  township() {
+    this.townshipList = this.provinces.map((x) => x.municipalities);
+    console.log('%c⧭', 'color: #99614d', this.township);
 
-
-    console.log('%c⧭', 'color: #aa00ff',event );
   }
 
   clear(): void {
@@ -281,7 +288,7 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   cancel(): void {
-    if(this.userForm.dirty && this.commonForm.dirty) {
+    if (this.userForm.dirty && this.commonForm.dirty) {
       Swal.fire({
         title: 'Se perderan los datos desea continuar?',
         icon: 'question',
@@ -291,7 +298,7 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
         showCancelButton: true,
         showCloseButton: true
       }).then((result) => {
-        if(result.isConfirmed) {
+        if (result.isConfirmed) {
           this.router.navigateByUrl('appointment/list');
         }
       })
@@ -306,7 +313,7 @@ export class CreateItemComponent implements OnInit, OnChanges, AfterViewInit {
       icon: 'success',
       iconHtml: '!',
     }).then((result) => {
-      if(result.value) {
+      if (result.value) {
         this.router.navigateByUrl('appointment/list');
       }
     })

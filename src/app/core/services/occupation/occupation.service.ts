@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
-import { OccupationResponse, OccupationRequest, OccupationDataResponse } from '../../../web/common/interfaces/occupations';
+import { OccupationResponse, OccupationRequest, OccupationDataResponse } from '../../../web/common/interfaces/occupations.interfaces';
 
 @Injectable()
 export class OccupationService extends BaseService<OccupationResponse, OccupationDataResponse, OccupationRequest> {

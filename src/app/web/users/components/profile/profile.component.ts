@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../../../core/services/users/users.service';
-import { PatientsService } from '../../../../core/services/patients/patients.service';
-import { DoctorsService } from '../../../../core/services/doctor/doctors.service';
-
+import { UsersResponse } from '../../interfaces/users.interfaces';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -10,13 +8,19 @@ import { DoctorsService } from '../../../../core/services/doctor/doctors.service
 })
 export class ProfileComponent implements OnInit {
 
+  user!: UsersResponse;
+
   constructor(
-    private usersService: UsersService,
-    private patientsService: PatientsService,
-    private doctorsService: DoctorsService
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
+    const userId = localStorage.getItem('x-userId')
+    this.usersService.GetById(userId).subscribe((resp) => {
+
+      this.user = resp.data
+      console.log('%c⧭', 'color: #f27999', this.user);
+    })
   }
 
 }

@@ -1,3 +1,19 @@
-<p>
-  profile works!
-</p>
+<div class="row">
+
+  <div class="col-6 text-justify">
+    <p-avatar  shape="circle" size="xlarge" image="../../../../../favicon.ico"></p-avatar>
+    <br>
+    <span>{{user.roles}}</span>
+  </div>
+
+  <div class="col-6">
+
+  </div>
+  <br>
+  <div>
+    <span class="float-right">{{user.createdAt | date}}</span>
+    <br>
+    <button pButton class="float-right p-button-info p-button-text" type="button" icon="pi pi-wrench" iconPos="left"></button>
+  </div>
+</div>
+

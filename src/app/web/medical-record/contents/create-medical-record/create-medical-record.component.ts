@@ -144,6 +144,7 @@ export class CreateMedicalRecordComponent implements OnInit, AfterViewInit {
     reason:         ['',Validators.required],
     description:    [],
     dignostics:     [''],
+    medicines:      [''],
     symptoms:       ['', Validators.required],
     service:        ['', Validators.required],
     status:         ['Realizada', Validators.required],

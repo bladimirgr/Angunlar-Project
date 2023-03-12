@@ -8,7 +8,6 @@ export class UrlNames {
 
 }
 
-
 export class Regex {
     static email = '/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i'
 }

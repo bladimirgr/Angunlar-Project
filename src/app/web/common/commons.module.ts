@@ -9,17 +9,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SharedModule } from '../../shared/shared.module';
-import { SeachComponent } from '../common/components/search-componente/search.component';
 
 @NgModule({
   declarations: [
-    CreateItemComponent,
-    SeachComponent
+    CreateItemComponent
   ],
   imports: [
     CommonModule,
     CommonsRoutingModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     DropdownModule,
     ButtonModule,
@@ -29,7 +27,6 @@ import { SeachComponent } from '../common/components/search-componente/search.co
     SharedModule
   ],
   exports: [
-    SeachComponent
   ]
 })
 export class CommonsModule { }

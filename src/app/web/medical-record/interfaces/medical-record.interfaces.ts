@@ -4,6 +4,7 @@ export interface MedicalRecordRequest {
     reason:         string;
     description:    string;
     service:        string;
+    medicines:      string[];
     symptons:       string[];
     dignostics:     string;
     status:         string
@@ -22,6 +23,7 @@ export interface MedicalRecordResponse {
     reason:         string;
     description:    string;
     service:        string;
+    medicines:      string[];
     symptons:       string[];
     dignostics:     string;
     status:         string

@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ListboxModule } from 'primeng/listbox';
 import { TableModule } from 'primeng/table';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { DashboardMedicalComponent } from './components/dashboard-medical/dashboard-medical.component';
 import { EncyclopediaDiseasesComponent } from './components/encyclopedia-diseases/encyclopedia-diseases.component';
@@ -34,7 +35,8 @@ import { ListMedicalRecordComponent } from './contents/list-medical-record/list-
     InputTextModule,
     CheckboxModule,
     ListboxModule,
-    TableModule
+    TableModule,
+    InputTextareaModule
   ],
   exports: [
     DashboardMedicalComponent,

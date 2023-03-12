@@ -101,7 +101,11 @@ export class AuthService {
     this.userRoles = localStorage.getItem("x-user-role") || '';
   }
 
-  // forgotPassword(email: string){
+
+  signOut() {
+    localStorage.clear();
+  }
+
   //   const url = `${this.urlForgot}`
 
   //   const body = { email }

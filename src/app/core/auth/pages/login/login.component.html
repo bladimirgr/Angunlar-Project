@@ -13,31 +13,21 @@
 
                 <form class="user" [formGroup]="loginForm">
                   <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      placeholder="Correo Electronico"
-                      formControlName="email"/>
-                 
+                    <input type="email" class="form-control form-control-user" placeholder="Correo Electronico"
+                      formControlName="email" />
                   </div>
 
                   <div class="form-group">
-                    <input
-                      type="password"
-                      class="form-control form-control-user"
-                      placeholder="Contraseña"
-                      formControlName="password"/>
-                 
+                    <input type="password" class="form-control form-control-user" placeholder="Contraseña"
+                      formControlName="password" />
+
                   </div>
 
-                  <button
-                    type="button"
-                    (click)="onSubmit()"
-                    class="btn btn-primary btn-user btn-block">
+                  <button type="button" (click)="onSubmit()" class="btn btn-primary btn-user btn-block">
                     Inicie Sesión
                   </button>
 
-                  <hr/>
+                  <hr />
 
                   <button type="button" class="btn btn-google btn-user btn-block">
                     <i class="fab fa-google fa-fw"></i> Iniciar con Google
@@ -49,14 +39,11 @@
 
                 </form>
 
-                <hr/>
+                <hr />
 
                 <div class="text-center">
-                  <a
-                    routerLink="/auth/forgot-password"
-                    class="small"
-                    href="forgot-password.html"
-                    >No recuerdas tu contraseña?</a>
+                  <a routerLink="/auth/forgot-password" class="small" href="forgot-password.html">No recuerdas tu
+                    contraseña?</a>
                 </div>
 
               </div>

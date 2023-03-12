@@ -28,30 +28,30 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
 
-    if(this.loginForm.valid){
+    if (this.loginForm.valid) {
 
-      const { email , password} = this.loginForm.value;
+      const { email, password } = this.loginForm.value;
 
       this.authService.login(email, password)
-      .subscribe((resp) => {
+        .subscribe((resp) => {
 
-        this.router.navigateByUrl('medical-record')
+          this.router.navigateByUrl('medical-record/list')
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 1000,
-          timerProgressBar: true
-        })  
-        
-        Toast.fire({
-          icon: 'success',
-          title:`Bienvenido ${resp.data.username}`
-        })
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: `Bienvenido ${resp.data.username}`
+          })
 
 
-      });
+        });
 
     }
   }

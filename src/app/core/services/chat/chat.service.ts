@@ -1,51 +1,64 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-
-  selectedUser: any;
-  usersList: any [] = [];
-  chats: any [] = [];
+  chats: any[] = [];
   count!: string;
-  usernameAlreadySelected : boolean = false;
-  users!: any [];
+  usernameAlreadySelected: boolean = false;
+  selectedUser: any
+  users!: any[];
 
   constructor(
     private socket: Socket
   ) {
-    this.onReceiveMessage();
     this.onUser();
-    this.usersOnline();
-    this.existUsers();
+    this.getOnline();
+    this.getExistUsers();
   }
 
-  usersOnline(): any {
-    this.socket.on("users", (users: any[]) => {
-      users.forEach((user) => {
-        this.users = users.sort((a, b) => {
-          if (a.self) return -1;
-          if (b.self) return 1;
-          if (a.username < b.username) return -1;
-          return a.username > b.username ? 1 : 0;
-        })        
-      })
-    });
+  getOnline() {
+    let observable = new Observable(observer => {
+      this.socket.on("users", (users: any[]) => {
+        this.count = users.length.toString();
+        observer.next(users)
+        users.forEach((user) => {
+          this.users = users.sort((a, b) => {
+            if (a.self) return -1;
+            if (b.self) return 1;
+            if (a.username < b.username) return -1;
+            return a.username > b.username ? 1 : 0;
+          })
+        })
+      });
+
+      return () => {
+        this.socket.disconnect();
+      };
+    })
+    return observable;
+
   }
 
-  existUsers(): any {
-    this.socket.on("userConnected", (user: any) => {
-      return this.users.push(user);
-    });
+  getExistUsers() {
+    let observable = new Observable(observer => {
+      this.socket.on("userConnected", (user: any) => {
+        observer.next(user)
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    })
+    return observable;
   }
 
   onUser(): any {
     this.usernameAlreadySelected = true;
-    this.socket.ioSocket['auth'] = { username: localStorage.getItem('x-user')};
+    this.socket.ioSocket['auth'] = { username: localStorage.getItem('x-user') };
     this.socket.connect();
   }
 
@@ -53,17 +66,38 @@ export class ChatService {
     const messageInfo = {
       text: message,
       date: new Date(),
-      username:  localStorage.getItem('x-user')
+      username: localStorage.getItem('x-user')
     }
-    this.chats.push(messageInfo)
-    this.socket.emit("sendMessage",  messageInfo)
+    this.chats.push(messageInfo);
+    this.socket.emit("sendMessage", messageInfo);
   }
 
-  onReceiveMessage(): any {
-    this.socket.on("receiveMessage", (messages: any) => { 
-      this.chats.push(messages);
+  getMessages() {
+    let observable = new Observable(observer => {
+      this.socket.on("receiveMessage", (messages: any) => {
+        observer.next(messages)
+        this.chats.push(messages);
+      })
+      return () => {
+        this.socket.disconnect();
+      };
     })
+    return observable;
   }
+
+  onMessage(message: any, selectedUser: any) {
+    if (selectedUser) {
+      this.socket.emit("private message", {
+        message,
+        to: selectedUser.userID,
+      });
+      selectedUser.messages.push({
+        message,
+        fromSelf: true,
+      });
+    }
+  }
+
 
 
 }

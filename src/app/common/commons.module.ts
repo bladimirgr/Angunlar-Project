@@ -10,6 +10,7 @@ import { CommonsRoutingModule } from './commons-routing.module';
 import { CommonsPrimengModule } from './commons-primeng.module';
 import { WebChatModule } from '../web/web-chat/web-chat.module';
 import { SharedModule } from '../shared/shared.module';
+import { UsersModule } from '../web/users/users.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     CommonsRoutingModule,
     CommonsPrimengModule,
-    WebChatModule
+    WebChatModule,
+    UsersModule
   ],
   exports: [DashboardComponent, SidebarComponent, HeaderComponent, FooterComponent, MainContentComponent ],
   providers: [],

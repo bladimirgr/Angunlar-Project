@@ -12,6 +12,7 @@ import { DisplayusersComponent } from './components/displayusers/displayusers.co
 import { ListboxModule } from 'primeng/listbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     IconWhatsappComponent,
@@ -21,8 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    SharedModule,
     WebChatRoutingModule,
+    SharedModule,
     BadgeModule,
     DialogModule,
     ButtonModule,

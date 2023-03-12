@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
-import { SpecialtyDataResponse, SpecialtyResponse, SpecialtyRequest } from '../../../web/common/interfaces/specialty';
+import { SpecialtyDataResponse, SpecialtyResponse, SpecialtyRequest } from '../../../web/common/interfaces/specialty.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,8 @@ export class SpecialtyService extends BaseService<SpecialtyDataResponse, Special
   override url = 'http://localhost:3000/medical-specialty'
 
   constructor(
-      private httpClient: HttpClient
-  ) { 
+    private httpClient: HttpClient
+  ) {
     super(httpClient)
   }
 

@@ -3,80 +3,81 @@
     <div class="col-xl-10 col-lg-12 col-md-9">
       <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
-    
-            <div class="col-lg-12">
-              <div class="p-5">
+          <div class="col-lg-12">
+            <div class="p-5">
 
-                <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Historial de Pacientes Vistos</h1>
-                </div>
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Historial de Pacientes Vistos</h1>
+              </div>
 
               <div class="card">
-                <p-table #dt1 [value]="medicalList" dataKey="id"
-                    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
-                    [globalFilterFields]="['name','country.name','representative.name','status']">
-                    <ng-template pTemplate="caption">
-                        <div class="flex">
-                            <span class="p-input-icon-right">
-                                <input class="form-control col-12" pInputText type="text" (input)="dt1.filterGlobal($event.target, 'contains')" placeholder="Buscar" />
-                            </span>
+                <p-table #dt1 [value]="medicalList" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+                  [rowsPerPageOptions]="[10,25,50]"
+                  [globalFilterFields]="['name','country.name','representative.name','status']">
+                  <ng-template pTemplate="caption">
+                    <div class="flex">
+                      <span class="p-input-icon-right">
+                        <input class="form-control col-12" pInputText type="text"
+                          (input)="dt1.filterGlobal($event.target, 'contains')" placeholder="Buscar" />
+                      </span>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="min-width:8rem">
+                        <div class="flex justify-content-center align-items-center">
+                          Nombres
+                          <p-columnFilter type="text" field="list.patientName" display="menu"></p-columnFilter>
                         </div>
-                    </ng-template>
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th style="min-width:8rem">
-                              <div class="flex justify-content-center align-items-center">
-                                Nombres
-                                <p-columnFilter type="text" field="list.patientName" display="menu"></p-columnFilter>
-                              </div>
-                            </th>
-                            <th style="min-width:8rem">
-                              <div class="flex justify-content-center align-items-center">
-                                Servicio
-                                <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
-                              </div>
-                            </th>
-                            <th style="min-width:8rem">
-                              <div class="flex justify-content-center align-items-center">
-                                Razón Visita
-                                <p-columnFilter type="text" field=", appointmentList.doctor.lastName" display="menu"></p-columnFilter>
-                              </div>
-                            </th>
-                            <th style="min-width:8rem">
-                              <div class="flex justify-content-center align-items-center">
-                                Fecha
-                                <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
-                              </div>
-                            </th>
-                            <th style="width: 3rem">
-                              Acciones
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-medicalList>
-                        <tr>
-                          <td>{{medicalList.patientName}}</td>
-                          <td>{{medicalList.service}}</td>
-                          <td>{{medicalList.reason}}</td>
-                          <td>{{medicalList.createdAt | date}}</td>
-                          <td *ngIf="medicalList.status === 'Realizada'">
-                            <a routerLink="/medical-record/info/info/{{medicalList.id}}" title="Ver Reporte Completo"><i class="pi pi-file "></i></a>                           
-                          </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td colspan="7">No se encontro resultados</td>
-                        </tr>
-                    </ng-template>
+                      </th>
+                      <th style="min-width:8rem">
+                        <div class="flex justify-content-center align-items-center">
+                          Servicio
+                          <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
+                        </div>
+                      </th>
+                      <th style="min-width:8rem">
+                        <div class="flex justify-content-center align-items-center">
+                          Razón Visita
+                          <p-columnFilter type="text" field=", appointmentList.doctor.lastName"
+                            display="menu"></p-columnFilter>
+                        </div>
+                      </th>
+                      <th style="min-width:8rem">
+                        <div class="flex justify-content-center align-items-center">
+                          Fecha
+                          <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
+                        </div>
+                      </th>
+                      <th style="width: 3rem">
+                        Acciones
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-medicalList>
+                    <tr>
+                      <td>{{medicalList.patientName}}</td>
+                      <td>{{medicalList.service}}</td>
+                      <td>{{medicalList.reason}}</td>
+                      <td>{{medicalList.createdAt | date}}</td>
+                      <td *ngIf="medicalList.status === 'Realizada'">
+                        <a routerLink="/medical-record/info/info/{{medicalList.id}}" title="Ver Reporte Completo"><i
+                            class="pi pi-file "></i></a>
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td colspan="7">No se encontro resultados</td>
+                    </tr>
+                  </ng-template>
                 </p-table>
-            </div>
-            
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>
-

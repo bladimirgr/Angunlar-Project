@@ -3,7 +3,7 @@ import { tap } from 'rxjs/operators';
 import { IBaseInterface } from './IBase.interfaces';
 
 export class IBaseImplement implements IBaseInterface {
- 
+
     _entity: any;
     _list!: any[];
     entity: any;

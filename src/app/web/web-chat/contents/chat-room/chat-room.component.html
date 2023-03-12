@@ -1,19 +1,19 @@
 <div class="container row col-12">
 
     <div class="col-4">
-        En Linea <p-badge class="mb-4" [value]="count" size="large" severity="success"></p-badge>
+        Online <p-badge class="mb-4" [value]="chatService.count" size="large" severity="success"></p-badge>
         <hr>
-        <p-listbox [(ngModel)]="selectedUser" emptyMessage="No hay usuarios en linea." styleClass="listbox" [filter]="true" [options]="users" optionLabel="username"></p-listbox>
+        <p-listbox [(ngModel)]="selectedUser" emptyMessage="No hay usuarios en linea." styleClass="listbox" [filter]="true" [options]="chatService.users" optionLabel="username"></p-listbox>
     </div>
 
     <div class="container col-8">
         <div class="messageContainer gfg">
-            <div class="locale mt-2 ml-2" *ngFor="let message of chats">
+            <div class="locale mt-2 ml-2" *ngFor="let message of chatService.chats">
                 {{message.text}}
                 <p class="pt-4 float-right">{{message.date | date:"shortTime"}}</p>
             </div>
         </div>
-        <form (submit)="sendMessage(message)">
+        <form (submit)="onMessage(message)">
             <textarea [(ngModel)]="message" [ngModelOptions]="{standalone:true}" pInputTextarea
                 class="form-control mt-2 mg-5" type="text" id="textarea" [autoResize]="true"></textarea>
             <button pButton type="submit" class="mt-2 float-right p-button-success p-button-rounded">Enviar
