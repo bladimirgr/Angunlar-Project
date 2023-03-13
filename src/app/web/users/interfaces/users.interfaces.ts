@@ -4,7 +4,7 @@ export interface UsersRequest {
     password:  string;
     isActive:  boolean;
     roles:     string;
-    img:       any
+    img:       string;
     createdAt: string;
     updatedAt: string;
 }
@@ -16,7 +16,7 @@ export interface UsersResponse {
     password:  string;
     isActive:  boolean;
     roles:     string;
-    img:       any
+    img:       string;
     createdAt: string;
     updatedAt: string;
 }

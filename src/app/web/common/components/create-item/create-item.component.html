@@ -15,9 +15,15 @@
                 <div>
                   <h6 class="text-muted">Datos de Usuarios<span class="text-secondary"></span></h6>
                 </div>
+                <!-- <div class="form-group col-6">
+                  <span>Foto de Perfil</span>
+                  <p-fileUpload formControlName="img" chooseLabel="Buscar" uploadLabel="Subir" cancelLabel="Cancelar" [customUpload]="true"
+                    (uploadHandler)="onFileChange($event.target.files)"></p-fileUpload>
+                </div> -->
                 <div class="form-row">
 
                   <div class="form-group col-6">
+
                     <div class="form-group col-8">
                       <span>Usuario</span>
                       <input pInputText class="p-inputtext form-control" type="text" title="username"
@@ -25,9 +31,6 @@
                       <app-error-messages [control]="this.userForm.controls['username']"></app-error-messages>
                     </div>
 
-                    <div class="form-group col-8">
-                      <input type="file" >
-                    </div>
 
                     <div class="form-group col-8">
                       <span>Contraseña</span>
@@ -205,8 +208,9 @@
                         <div class="form-row" formGroupName="{{i}}">
                           <div class="form-group col-4">
                             <label class="control-label">Provincia</label>
-                            <p-dropdown [(ngModel)]="selectProvince" (onChange)="township()" optionLabel="description" optionValue="code" formControlName="province"
-                              placeholder="Seleccione su provincia" filterBy="description"
+                            <p-dropdown [(ngModel)]="selectProvince" (onChange)="township()" optionLabel="description"
+                              optionValue="code" formControlName="province" placeholder="Seleccione su provincia"
+                              filterBy="description"
                               [style]="{'width': '100%', 'height': '42.6px', 'border-radius': '5px', 'border-color': '#bfc9d4'}"
                               [options]="provinces" [virtualScroll]="true" [itemSize]="32" [filter]="true"
                               [showClear]="true">
@@ -214,9 +218,8 @@
                           </div>
                           <div class="form-group col-md-4">
                             <label for="sector" class="control-label">Municipio</label>
-                            <p-dropdown optionLabel="description" optionValue="description"
-                              formControlName="township" placeholder="Seleccione o Digite su Sector"
-                              filterBy="description"
+                            <p-dropdown optionLabel="description" optionValue="description" formControlName="township"
+                              placeholder="Seleccione o Digite su Sector" filterBy="description"
                               [style]="{'width': '100%', 'height': '42.6px', 'border-radius': '5px', 'border-color': '#bfc9d4'}"
                               [options]="townshipList" [virtualScroll]="true" [itemSize]="31" [filter]="true"
                               [editable]="true" [showClear]="true">

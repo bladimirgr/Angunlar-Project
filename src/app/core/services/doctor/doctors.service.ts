@@ -16,8 +16,8 @@ export class DoctorsService {
         return this.httpClient.get<DoctorResponse[]>(`${this.url}`)
     }
 
-    GetById(id: string): Observable<DoctorResponse> {
-        return this.httpClient.get<DoctorResponse>(`${this.url}/?userId=${id}`)
+    GetById(id: string): Observable<any> {
+        return this.httpClient.get<any>(`${this.url}/?userId=${id}`)
     }
     
     Create(entity: DoctorRequest): Observable<DoctorRequest> {

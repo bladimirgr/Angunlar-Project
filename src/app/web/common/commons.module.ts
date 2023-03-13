@@ -10,6 +10,8 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SharedModule } from '../../shared/shared.module';
 
+import { FileUploadModule } from 'primeng/fileupload';
+
 @NgModule({
   declarations: [
     CreateItemComponent
@@ -24,7 +26,8 @@ import { SharedModule } from '../../shared/shared.module';
     InputTextModule,
     InputMaskModule,
     RadioButtonModule,
-    SharedModule
+    SharedModule,
+    FileUploadModule
   ],
   exports: [
   ]

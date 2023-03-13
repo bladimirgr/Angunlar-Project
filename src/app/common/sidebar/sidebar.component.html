@@ -3,9 +3,9 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+            <i class="pi pi-building" style="font-size: 2rem"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">App <sup>Admin</sup></div>
+        <div [routerLink]="'dashboard'" class="sidebar-brand-text mx-3">Specialist Clinic <sup><i class="pi pi-globe"></i></sup></div>
     </a>
 
     <!-- Divider -->
@@ -15,7 +15,7 @@
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
             <a class="nav-link" [routerLink]="'dashboard'" routerLinkActive="active">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="pi pi-info-circle"></i>
                 <span>Dashboard</span>
             </a>
         </li>
@@ -25,7 +25,7 @@
     <hr class="sidebar-divider">
 
     <!-- Heading Pacients -->
-    <div class="sidebar-heading">
+    <div class="sidebar-heading text-light">
         Citas
     </div>
     <ul>
@@ -46,7 +46,7 @@
     <hr *ngIf="roles != 'Paciente'" class="sidebar-divider">
 
     <!-- Heading Pacients -->
-    <div *ngIf="roles != 'Paciente'" class="sidebar-heading">
+    <div *ngIf="roles != 'Paciente'" class="sidebar-heading text-light">
         Doctor y Pacientes
     </div>
     <ul *ngIf="roles != 'Paciente'">
@@ -71,7 +71,7 @@
     <hr class="sidebar-divider">
 
     <!-- Heading Pacients -->
-    <div class="sidebar-heading">
+    <div class="sidebar-heading text-light">
         Historial Médico
     </div>
     <ul>

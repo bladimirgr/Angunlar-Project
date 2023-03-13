@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit {
       label: 'Menu',
       items: [
         { label: 'Perfil', icon: 'pi pi-user', command: (event) => { this.showPerfil() } },
-        { label: 'Open', icon: 'pi pi-download' }
       ]
     },
     {

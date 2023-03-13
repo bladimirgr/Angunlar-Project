@@ -31,6 +31,7 @@ export class CreateItemComponent implements OnInit, AfterViewInit {
   provinces: Provinces[] = [];
   townshipList: any[] = [];
   selectProvince: any;
+  fileToUpload!: File | null
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,13 +53,13 @@ export class CreateItemComponent implements OnInit, AfterViewInit {
     email: ['', Validators.required],
     password: ['', Validators.required],
     isActive: [true],
-    roles: ['', Validators.required]
+    roles: ['', Validators.required],
+    img: [''],
   })
 
   commonForm: FormGroup = this.formBuilder.group({
     userId: [this.userId],
     record: [],
-    img: [],
     occupationId: [''],
     firstName: ['', [Validators.required, Validators.minLength(3)]],
     lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -221,8 +222,6 @@ export class CreateItemComponent implements OnInit, AfterViewInit {
   }
 
   Create(): void {
-
-    console.log('%c⧭', 'color: #00ff88', this.commonForm.value);
     if (this.userForm.valid) {
       //Si el formulario de Usuario es valido, lo crea.
       this.usersService.Create(this.userForm.value).subscribe((resp) => {
@@ -268,6 +267,10 @@ export class CreateItemComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onFileChange(files: FileList) {
+    console.log('%c⧭', 'color: #e57373', files.item);
+  }
+
   onChanges(country: any): void {
     if (country) {
       this.provincesService.GetList().subscribe((resp: Provinces[]) => {
@@ -278,8 +281,6 @@ export class CreateItemComponent implements OnInit, AfterViewInit {
 
   township() {
     this.townshipList = this.provinces.map((x) => x.municipalities);
-    console.log('%c⧭', 'color: #99614d', this.township);
-
   }
 
   clear(): void {

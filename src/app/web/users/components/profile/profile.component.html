@@ -1,19 +1,51 @@
-<div class="row">
+<div class="img-container">
+  <img src="../../../../../assets/img/undraw_profile.svg" alt="Perfil">
+  <p-fileUpload class="float-right " mode="basic"></p-fileUpload>
+</div>
+<div class="row col-12">
 
-  <div class="col-6 text-justify">
-    <p-avatar  shape="circle" size="xlarge" image="../../../../../favicon.ico"></p-avatar>
-    <br>
-    <span>{{user.roles}}</span>
+  <div class="col-6">
+    <div *ngIf="user?.roles != 'Doctor'">
+      <h5><b>Nombres </b></h5> <span>{{user!.roles | Roles }}. {{patient!.firstName}} {{patient!.lastName}}</span>
+      <br><br>
+      <h5><b>Nacionalidad </b></h5> <span>{{patient!.nationalityId}}</span>
+      <br><br>
+      <h5><b>Correo </b></h5> <span>{{user!.email}}</span>
+      <br><br>
+      <h5><b>Cumpleaños </b></h5> <span>{{patient!.birthday}}</span>
+      <br>
+    </div>
+    <br><br>
+    <div *ngIf="user?.roles != 'Paciente'">
+      <h5><b>Nombres </b></h5><span>{{user!.roles | Roles }}. {{doctor!.firstName}} {{doctor!.lastName}}</span>
+      <br><br>
+      <h5><b>Nacionalidad </b></h5> <span>{{doctor!.nationalityId | Countries}}</span>
+      <br><br>
+      <h5><b>Correo </b></h5> <span>{{user!.email}}</span>
+      <br><br>
+      <h5><b>Cumpleaños </b></h5> <span>{{doctor!.birthday}}</span>
+      <br>
+    </div>
   </div>
 
   <div class="col-6">
-
+    <div *ngIf="user?.roles != 'Doctor'">
+      <h5><b>Especialidad: </b></h5> <span>{{patient!.specialtyId | Specialty}}</span>
+    </div>
+    <br><br>
+    <div *ngIf="user?.roles != 'Paciente'">
+      <h5><b>Especialidad: </b></h5> <span>{{doctor!.specialtyId | Specialty}}</span>
+      <br><br>
+      <h5><b>Teléfono: </b></h5> <span>{{doctor!.phones[0].number}}</span>
+    </div>
   </div>
-  <br>
+ 
   <div>
-    <span class="float-right">{{user.createdAt | date}}</span>
+    <span class="float-right"><b>Usuario Creado</b></span>
     <br>
-    <button pButton class="float-right p-button-info p-button-text" type="button" icon="pi pi-wrench" iconPos="left"></button>
+    <span class="float-right">{{user!.createdAt | date}}</span>
+    <br>
+    <button pButton class="p-button-info" type="button" icon="pi pi-wrench" iconPos="left"></button>
   </div>
 </div>
 
