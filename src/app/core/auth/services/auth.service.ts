@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat/chat.service';
+import Swal from 'sweetalert2';
 
 export enum Role {
   Admin = 'Admin',
@@ -47,9 +48,7 @@ export class AuthService {
           localStorage.setItem('x-user-auth', resp.succeeded);
                 
         } else {
-
-          console.log('%c⧭', 'color: #e50000', "Error al iniciar sesión");
-
+          this.alertMessage();
         }
       })
     );
@@ -104,6 +103,13 @@ export class AuthService {
 
   signOut() {
     localStorage.clear();
+  }
+
+  alertMessage() {
+    Swal.fire({
+      title: 'Error al inicial sesión',
+      icon: 'error'
+    })
   }
 
   //   const url = `${this.urlForgot}`
